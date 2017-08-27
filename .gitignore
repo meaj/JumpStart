@@ -1,0 +1,5 @@
+/Proposal/*.pdf
+/Proposal/*.log
+/Proposal/*.gz
+/Proposal/*.aux
+.fuse_hidden*
