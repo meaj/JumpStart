@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from splash import views #probably bad coding practice but, it defaults to a "splash" screen
+from splash.views import index #probably bad coding practice but, it defaults to a "splash" screen
 admin.autodiscover()
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^splash/', include('splash.url')),
-    url(r'^$', views.index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
+    url(r'^temporary/', include('temporary.url')),
+    url(r'^$', index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
 ]

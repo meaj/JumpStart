@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'emailing.apps.EmailingConfig',
+    'importing.apps.ImportingConfig',
+    'splash.apps.SplashConfig',
+    'temporary.apps.TemporaryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,3 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#email
+#using google smtp
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jumpstartutsa@gmail.com'
+EMAIL_HOST_PASSWORD = 'Admin1234'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

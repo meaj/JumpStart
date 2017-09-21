@@ -1,2 +1,0 @@
-# JumpStart
-UTSA JumpStart system
