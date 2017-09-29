@@ -12,6 +12,9 @@ from django.http import HttpResponseRedirect
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
+def login_page(request):
+    return render(request, 'login_page.html', {})
+
 def index(request):
 
     if request.method == 'POST':
@@ -50,7 +53,7 @@ def index(request):
 
             local_subject = "this is test"
 
-            email_string = "http://127.0.0.1:8000/temporary/" + str(temp_association.uuid_token)
+            email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
 
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
