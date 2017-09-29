@@ -1,6 +1,12 @@
 from django.db import models
+from django.test import TestCase
+
 
 # Create your models here.
+
+
+
+
 class faculty(models.Model):
     title = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
@@ -16,7 +22,12 @@ class attendee(models.Model):
 
 
 class workshop(models.Model):
-    survery_title =models.CharField(max_length=45)
+    survery_title = models.CharField(max_length=45)
     survey_body_information = models.CharField(max_length=1000)
     attendees = models.ForeignKey(attendee, on_delete=models.CASCADE)
 
+
+class email(models.Model):
+    email_subject = models.CharField(max_length=45)
+    email_body = models.CharField(max_length=2000)
+    email_signature = models.CharField(max_length=45)

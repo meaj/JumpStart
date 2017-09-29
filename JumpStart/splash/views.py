@@ -12,6 +12,9 @@ from django.http import HttpResponseRedirect
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
+def login_page(request):
+    return render(request, 'login_page.html', {})
+
 def index(request):
 
     if request.method == 'POST':

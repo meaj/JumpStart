@@ -2,7 +2,13 @@ from django.db import models
 from django.core.mail import send_mail
 # Create your models here.
 
+from django.test import TestCase
+
+
 #feel free to refactor if you have better names
+
+
+
 
 class email_object:
     def __init__(self):
