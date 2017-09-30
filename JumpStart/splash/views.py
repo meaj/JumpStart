@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from emailing.models import email_object
 from temporary.models import attendee_email_workshop_uuid_association
-from importing.models import attendee as atendeeObject, workshop as workshopObject
+from importing.models import attendee as atendeeObject, workshop as workshopObject, email_template as emailObject
 from .forms import NameForm
 from .forms import EmailForm
 from django.http import HttpResponseRedirect
@@ -52,12 +52,20 @@ def index(request):
                 print(str(x.uuid_token))
 
             local_subject = "this is test"
-
             email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
-
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
             local_target_email_addresses = form.cleaned_data['attendee_email'] #This is the data pulled from the postform
+
+            ''' 
+                This allows the email to read the data stored in the email_templates database 
+            '''
+            for e in emailObject.objects.all():
+                if e.email_name == "template1":
+                    local_subject = e.email_subject
+                    local_message = e.email_body +"\nYour unique email link is:\n"+ email_string + "\n\n" + e.email_signature + "\n"
+
+
             print(local_target_email_addresses)
             email = email_object()
             email.subject = local_subject

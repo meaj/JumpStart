@@ -13,21 +13,28 @@ class faculty(models.Model):
     department = models.CharField(max_length=45)
     faculty_email = models.EmailField
 
+    def __str__(self):
+        return  self.title + " " + self.last_name
 
 class attendee(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     email = models.CharField(max_length=60)
     attendee_email = models.EmailField
-
+    def __str__(self):
+        return self.email
 
 class workshop(models.Model):
-    survery_title = models.CharField(max_length=45)
+    survey_title = models.CharField(max_length=45)
     survey_body_information = models.CharField(max_length=1000)
     attendees = models.ForeignKey(attendee, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return self.survey_title
 
 class email_template(models.Model):
-    email_subject = models.CharField(max_length=45)
-    email_body = models.CharField(max_length=2000)
-    email_signature = models.CharField(max_length=45)
+    email_name = models.CharField(max_length=16,default="name")
+    email_subject = models.CharField(max_length=45, default="subject")
+    email_body = models.CharField(max_length=2000, default="body")
+    email_signature = models.CharField(max_length=45, default="jumpstartutsa@gmail.com")
+    def __str__(self):
+        return self.email_name
