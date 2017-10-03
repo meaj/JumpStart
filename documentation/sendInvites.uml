@@ -1,0 +1,33 @@
+@startuml
+
+title JumpStart: Send invites
+
+actor Student
+
+boundary "Student Interface"
+control "Controller"
+database "Registration Database"
+boundary "Organizer Interface"
+
+actor Organizer
+
+Organizer -> "Organizer Interface": "Send invites"
+
+"Organizer Interface" -> "Controller": "Send invites"
+"Controller" -> "Registration Database": Read students to invite
+"Registration Database" -> "Controller": Students to invite
+
+"Controller" -> Student: Invite email
+Student -> "Student Interface": Invite link
+"Student Interface" -> Student: Registration form
+Student -> "Student Interface": Registration POST
+"Student Interface" -> "Controller": "Register student"
+
+"Controller" -> "Registration Database": Update student as registered
+"Registration Database" -> "Controller": "Student updated"
+
+"Controller" -> "Student Interface": "Student registered"
+"Controller" -> Student: Confirmation email
+"Student Interface" -> Student: Confirmation page
+
+@enduml
