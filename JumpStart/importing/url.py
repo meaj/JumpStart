@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
-from splash import views
+from importing import views
 
 urlpatterns = [
-    url(r'^', views.index, name='index'),
+    url(r'^', views.csv_import_page, name='csv_upload'),
     ]
