@@ -36,7 +36,7 @@ def index(request):
                     temp_attendee = attend
 
             for workshop in workshopObject.objects.all():
-                if workshop.survery_title == "DAT WORKSHOP":
+                if workshop.survey_title == "DAT WORKSHOP":
                     temp_workshop = workshop
             '''
             The for loops look weird because, we have to have models already committed to the database to run these

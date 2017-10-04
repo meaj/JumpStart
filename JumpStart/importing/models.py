@@ -33,8 +33,8 @@ class workshop(models.Model):
 
 class email_template(models.Model):
     email_name = models.CharField(max_length=16,default="name")
-    email_subject = models.CharField(max_length=45, default="subject")
-    email_body = models.CharField(max_length=2000, default="body")
-    email_signature = models.CharField(max_length=45, default="jumpstartutsa@gmail.com")
+    email_subject = models.CharField(max_length=48, default="subject")
+    email_body = models.TextField(max_length=2000, default="body")
+    email_signature = models.CharField(max_length=48, default="jumpstartutsa@gmail.com")
     def __str__(self):
         return self.email_name
