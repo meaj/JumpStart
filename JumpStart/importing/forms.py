@@ -5,3 +5,8 @@ class CSV_Form(forms.ModelForm):
     class Meta:
         model = csv_file
         fields = ('description', 'document',)
+
+class Import_Form(forms.ModelForm):
+    class Meta:
+        model = csv_file
+        fields = ('document',)

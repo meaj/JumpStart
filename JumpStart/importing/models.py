@@ -18,14 +18,15 @@ class faculty(models.Model):
 
 class attendee(models.Model):
     group = models.CharField(max_length=48,default="group")
+    utsa_id = models.CharField(max_length=6, default="abc123")
     first_name = models.CharField(max_length=48)
     last_name = models.CharField(max_length=48)
     email = models.CharField(max_length=60)
     attendee_email = models.EmailField
+    has_been_emailed = models.BooleanField(default=False)
     def __str__(self):
-        return self.email
+        return self.utsa_id + " : " + self.email
 
-#create invitee object that has all fields for attendee plus a field corresponding to if they have been emailed or not
 
 class workshop(models.Model):
     survey_title = models.CharField(max_length=48,default="title")

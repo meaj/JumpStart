@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^splash/', include('splash.url')),
     url(r'^temporary/', include('temporary.url')),
     url(r'^csv_upload/', include('importing.url')),
+    url(r'^csv_import/', include('importing.url')),
     url(r'^$', index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
 ]
 
