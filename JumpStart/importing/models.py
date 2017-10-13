@@ -25,7 +25,7 @@ class attendee(models.Model):
     attendee_email = models.EmailField
     has_been_emailed = models.BooleanField(default=False)
     def __str__(self):
-        return self.utsa_id + " : " + self.email
+        return self.group + " : " + self.email
 
 
 class workshop(models.Model):

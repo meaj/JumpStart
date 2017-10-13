@@ -1,4 +1,3 @@
-Number,Subject Code,Course Number,Section Number,CRN,Student ID,myUTSA ID,Last Name,First Name,Middle Initial,Email Address,Admit Code,Registration Status Description
 1,CS,1713,1,10344,@01234578,abc123,Washington,George,,george@gmail.com,FR,**Web Registered**
 2,CS,1713,2,17274,@01234579,def456,Jefferson,Thomas,,jefferson@gmail.com,TR,**Web Registered**
 3,CS,1713,1,10344,@01234580,ghi789,Madison,James,,madison@gmail.com,FR,**Web Registered**
@@ -9,4 +8,4 @@ Number,Subject Code,Course Number,Section Number,CRN,Student ID,myUTSA ID,Last N
 8,CS,1713,1,10344,@01234585,ghi123,Roosevelt,Theodore,,teddy@gmail.com,FR,**Web Registered**
 9,CS,1713,2,17274,@01234586,ghi456,Coolidge,Calvin,,staycoolwithcoolidge@gmail.com,TR,**Web Registered**
 10,CS,1713,3,16152,@01234587,xyz123,Truman,Harry,S,trumanshow@gmail.com,FR,Reinstate Course
-10,CS,1713,3,16152,@01234587,xyz123,Barley,Mob,S,Mobbarley@gmail.com,FR,Reinstate Course
+11,CS,1713,3,16152,@01234587,dck123,Nixon,Dick,M,dicknixon@gmail.com,JR,Reinstate Course
