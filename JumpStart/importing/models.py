@@ -1,11 +1,9 @@
 from django.db import models
+import os
 from django.test import TestCase
 
 
 # Create your models here.
-
-
-
 
 class faculty(models.Model):
     title = models.CharField(max_length=48)
@@ -25,7 +23,7 @@ class attendee(models.Model):
     attendee_email = models.EmailField
     has_been_emailed = models.BooleanField(default=False)
     def __str__(self):
-        return self.group + " : " + self.email #should use abc123 instead of email
+        return self.group + " : " + self.email
 
 
 class workshop(models.Model):

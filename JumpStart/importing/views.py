@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from importing.models import attendee as AttendeeObject
+from django.shortcuts import render
+from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist
 from importing.forms import CSV_Form
 import re
@@ -31,7 +31,17 @@ def csv_upload_page(request):
                                                               email=data[10], group=group_name)
                             else:
                                 pass
-            #TODO: need to close csv file and delete instance from MEDIA_ROOT and csv model from DB
+            #close csv file and remove csv models and files
+            f.close()
+            #alternative method if needed:
+            #csv_file_objects = CSVObject.objects.all()
+            #for c in csv_file_objects:
+            c = CSVObject.objects.get()
+            try:
+                c.document.delete()
+            except:
+                pass
+            c.delete()
 
     else:
         form = CSV_Form()
