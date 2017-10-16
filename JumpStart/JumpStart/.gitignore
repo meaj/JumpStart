@@ -1,7 +1,0 @@
-/proposal/*.pdf
-/proposal/*.log
-/proposal/*.gz
-/proposal/*.aux
-.fuse_hidden*
-/build/*
-/.idea/*
