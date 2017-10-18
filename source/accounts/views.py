@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-# Create your views here.
+from accounts.forms import *
+
+
 def signUp(request):
 
     #if the user sends infor its a post request
@@ -28,9 +30,6 @@ def loginView(request):
             return render(request, 'accounts/login.html', {'error': 'the username and password didn\'t match'})
     else:# its a get request
         return render(request, 'accounts/login.html')
-
-
-
 
 
 
