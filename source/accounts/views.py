@@ -37,7 +37,7 @@ def loginView(request):
 def createUserIfDoesNotExist(request):
     try:
         User.objects.get(username = request.POST['username'])
-        return render(request, 'accounts/signUp.html', {'error': 'Username has already been talem'})
+        return render(request, 'accounts/signUp.html', {'error': 'Username has already been taken'})
     except User.DoesNotExist:
         user = User.objects.create_user(username =request.POST['username'],email = request.POST['email'], password = request.POST['password1'])
         login(request, user)
