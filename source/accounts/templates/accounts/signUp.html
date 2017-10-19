@@ -8,10 +8,10 @@
         -webkit-font-smoothing: antialiased;	;
     }
     #container {
-        position: fixed;
+        position: relative;
         width: 340px;
-        height: 633px;
-        top: 30%;
+        height: 800px;
+        top: 20%;
         left: 50%;
         margin-top: -140px;
         margin-left: -170px;
@@ -126,13 +126,28 @@
 
 <div id="container">
   <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
-  {% if error %}
-  {{error}}
-  {% endif%}
   <form method  = "POST" action = "{% url 'signUp' %}">
     {% csrf_token %}
+    {% if userForm.errors %}
+    {% for field in userForm %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <p style="color: red"> <strong>{{ error|escape }}</strong></p>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in userForm.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
+    {{ userForm.username }}
+    <label for="first_name">First name:(optional)</label>
+    <input type="text" id="username" name="first_name">
+    <label for="username">Last name:(optional)</label>
+    <input type="text" id="username" name="last_name">
     <label for="username">Email:</label>
     <input type="text" id="username" name="email">
     <label for="password">Password:</label>
@@ -140,7 +155,6 @@
     <label for="password">Confirm password:</label>
     <input type="password" id="password" name="password2">
     <div id="lower">
-      <label for="checkbox">forgot password</label>
       <input type="submit" value="Sign Up">
     </div><!--/ lower-->
   </form>

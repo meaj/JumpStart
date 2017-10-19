@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^csv_upload/', include('importing.url')),
     url(r'^signup/', accounts.views.signUp, name  = 'signUp'),
     url(r'^login/', accounts.views.loginView, name  = 'login'),
+    url(r'^logout/', accounts.views.logout_view, name='logout'),
     url(r'^$', index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
 ]
 

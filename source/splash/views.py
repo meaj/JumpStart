@@ -5,16 +5,20 @@ from importing.models import attendee as atendeeObject, workshop as workshopObje
 from .forms import NameForm
 from .forms import EmailForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
 #index
+@login_required(login_url='/login/')
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
 def login_page(request):
     return render(request, 'login_page.html', {})
 
+@login_required(login_url='/login/')
 def index(request):
 
     if request.method == 'POST':
