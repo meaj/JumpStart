@@ -1,17 +1,24 @@
 from django.shortcuts import render
 from emailing.models import email_object
 from temporary.models import attendee_email_workshop_uuid_association
-from importing.models import attendee as atendeeObject, workshop as workshopObject
+from importing.models import attendee as atendeeObject, workshop as workshopObject, email_template as emailObject
 from .forms import NameForm
 from .forms import EmailForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
 #index
+@login_required(login_url='/login/')
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
+def login_page(request):
+    return render(request, 'login_page.html', {})
+
+@login_required(login_url='/login/')
 def index(request):
 
     if request.method == 'POST':
@@ -33,7 +40,7 @@ def index(request):
                     temp_attendee = attend
 
             for workshop in workshopObject.objects.all():
-                if workshop.survery_title == "DAT WORKSHOP":
+                if workshop.survey_title == "DAT WORKSHOP":
                     temp_workshop = workshop
             '''
             The for loops look weird because, we have to have models already committed to the database to run these
@@ -49,12 +56,20 @@ def index(request):
                 print(str(x.uuid_token))
 
             local_subject = "this is test"
-
-            email_string = "http://127.0.0.1:8000/temporary/" + str(temp_association.uuid_token)
-
+            email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
             local_target_email_addresses = form.cleaned_data['attendee_email'] #This is the data pulled from the postform
+
+            ''' 
+                This allows the email to read the data stored in the email_templates database 
+            '''
+            for e in emailObject.objects.all():
+                if e.email_name == "template1":
+                    local_subject = e.email_subject
+                    local_message = e.email_body +"\nYour unique email link is:\n"+ email_string + "\n\n" + e.email_signature + "\n"
+
+
             print(local_target_email_addresses)
             email = email_object()
             email.subject = local_subject
