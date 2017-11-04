@@ -19,13 +19,16 @@ from splash.views import index #probably bad coding practice but, it defaults to
 admin.autodiscover()
 from django.conf import settings
 from django.conf.urls.static import static
-
+import accounts.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^splash/', include('splash.url')),
     url(r'^temporary/', include('temporary.url')),
     url(r'^csv_upload/', include('importing.url')),
+    url(r'^signup/', accounts.views.signUp, name  = 'signUp'),
+    url(r'^login/', accounts.views.loginView, name  = 'login'),
+    url(r'^logout/', accounts.views.logout_view, name='logout'),
     url(r'^$', index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
 ]
 

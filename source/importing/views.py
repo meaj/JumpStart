@@ -3,8 +3,10 @@ from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist
 from importing.forms import CSV_Form
 import re
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
+@login_required(login_url='/login/')
 def csv_upload_page(request):
     if request.method == "POST":
         form = CSV_Form(request.POST, request.FILES)

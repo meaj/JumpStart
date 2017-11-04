@@ -1,22 +1,26 @@
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from emailing.models import email_object
+
 from temporary.models import attendee_email_workshop_uuid_association
 from importing.models import attendee as atendeeObject, workshop as workshopObject, email_template as emailObject
-from .forms import NameForm
+
 from .forms import EmailForm
-from django.http import HttpResponseRedirect
 
-# Create your views here.
 
-#index
+# index
+@login_required(login_url='/login/')
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
+
 
 def login_page(request):
     return render(request, 'login_page.html', {})
 
-def index(request):
 
+@login_required(login_url='/login/')
+def index(request):
     if request.method == 'POST':
 
         form = EmailForm(request.POST)
@@ -32,7 +36,7 @@ def index(request):
             temp_association = attendee_email_workshop_uuid_association()
 
             for attend in atendeeObject.objects.all():
-                if attend.first_name == "kk" :
+                if attend.first_name == "kk":
                     temp_attendee = attend
 
             for workshop in workshopObject.objects.all():
@@ -55,7 +59,8 @@ def index(request):
             email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
-            local_target_email_addresses = form.cleaned_data['attendee_email'] #This is the data pulled from the postform
+            local_target_email_addresses = form.cleaned_data[
+                'attendee_email']  # This is the data pulled from the postform
 
             ''' 
                 This allows the email to read the data stored in the email_templates database 
@@ -63,18 +68,17 @@ def index(request):
             for e in emailObject.objects.all():
                 if e.email_name == "template1":
                     local_subject = e.email_subject
-                    local_message = e.email_body +"\nYour unique email link is:\n"+ email_string + "\n\n" + e.email_signature + "\n"
-
+                    local_message = e.email_body + "\nYour unique email link is:\n" + email_string + "\n\n" + e.email_signature + "\n"
 
             print(local_target_email_addresses)
-            email = email_object()
-            email.subject = local_subject
-            email.message = local_message
-            email.email_sender = local_email_sender
-            #  email.target_email_addresses = local_target_email_addresses
-            email.add_email_to_target_email_addresses(local_target_email_addresses)
 
-            email.send_email()
+            send_mail(
+                local_subject,
+                local_message,
+                local_email_sender,
+                [local_target_email_addresses],
+                fail_silently=False
+            )
 
             return HttpResponseRedirect('/splash/thanks')
 

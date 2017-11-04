@@ -5,3 +5,5 @@
 .fuse_hidden*
 /build/*
 /.idea/*
+*.pyc
+*.sqlite3
