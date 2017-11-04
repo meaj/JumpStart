@@ -21,7 +21,6 @@ class attendee(models.Model):
     last_name = models.CharField(max_length=48)
     email = models.CharField(max_length=60)
     attendee_email = models.EmailField
-    has_been_emailed = models.BooleanField(default=False)
     def __str__(self):
         return self.group + " : " + self.email
 
