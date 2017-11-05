@@ -13,6 +13,7 @@ def csv_upload_page(request):
         form = CSV_Form(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            #need to get workshop to be associated with these attendees
             with open('media/csv_files/' + request.FILES['document'].name) as f:
                 # gets group name from form, will need to get from workshop in future, possibly rename to workshop name
                 group_name = form.cleaned_data['group']

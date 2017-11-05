@@ -24,13 +24,21 @@ class attendee(models.Model):
     def __str__(self):
         return self.group + " : " + self.email
 
+#temporary session model
+class session(models.Model):
+    session_title = models.CharField(max_length=48,default="title")
+    session_date = models.CharField(max_length=48,default="5 November")
+    session_threshold = models.IntegerField(default= 1)
 
 class workshop(models.Model):
     survey_title = models.CharField(max_length=48,default="title")
     survey_body_information = models.CharField(max_length=1000)
     attendees = models.ForeignKey(attendee, on_delete=models.CASCADE)
+    sessions = models.ForeignKey(session, on_delete=models.CASCADE)
     def __str__(self):
         return self.survey_title
+
+
 
 class email_template(models.Model):
     email_name = models.CharField(max_length=16,default="name")
