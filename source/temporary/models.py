@@ -1,5 +1,6 @@
 from django.db import models
-from importing.models import attendee as attendeeObject, workshop as workshopObject
+from importing.models import attendee as attendeeObject
+from workshops.models import Workshop as workshopObject
 import uuid
 # Create your models here.
 

@@ -16,7 +16,7 @@ class faculty(models.Model):
 
 class attendee(models.Model):
     group = models.CharField(max_length=48,default="group")
-    utsa_id = models.CharField(max_length=6, default="abc123")
+    utsa_id = models.CharField(max_length=6, default="abc123",primary_key=True)
     first_name = models.CharField(max_length=48)
     last_name = models.CharField(max_length=48)
     email = models.CharField(max_length=60)
@@ -24,7 +24,7 @@ class attendee(models.Model):
     def __str__(self):
         return self.group + " : " + self.email
 
-#temporary session model
+'''#temporary session model
 class session(models.Model):
     session_title = models.CharField(max_length=48,default="title")
     session_date = models.CharField(max_length=48,default="5 November")
@@ -34,11 +34,9 @@ class workshop(models.Model):
     survey_title = models.CharField(max_length=48,default="title")
     survey_body_information = models.CharField(max_length=1000)
     attendees = models.ForeignKey(attendee, on_delete=models.CASCADE)
-    sessions = models.ForeignKey(session, on_delete=models.CASCADE)
     def __str__(self):
         return self.survey_title
-
-
+'''
 
 class email_template(models.Model):
     email_name = models.CharField(max_length=16,default="name")

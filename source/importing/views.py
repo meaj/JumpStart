@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from importing.forms import CSV_Form
 from temporary.models import attendee_email_workshop_uuid_association as AssociationObject
 import re
@@ -14,6 +14,7 @@ def csv_upload_page(request):
         if form.is_valid():
             form.save()
             #need to get workshop to be associated with these attendees
+            #possibly take as an argument?
             with open('media/csv_files/' + request.FILES['document'].name) as f:
                 # gets group name from form, will need to get from workshop in future, possibly rename to workshop name
                 group_name = form.cleaned_data['group']
@@ -23,7 +24,7 @@ def csv_upload_page(request):
                     #attempts to split csv line into array wiht 12 indexes until EOF
                     data = line.split(",")
                     if len(data) != 12:
-                        #TODO: needs to change to check for abc123 in group instead, and possibly overrite existing db entry in case of email address change
+                        #checks for abc123 in group instead, and possibly overrite existing db entry in case of email address change
                         try:
                             attendee = AttendeeObject.objects.get(utsa_id=data[6])
                         except ObjectDoesNotExist:
@@ -34,6 +35,19 @@ def csv_upload_page(request):
                                                               email=data[10], group=group_name)
                             else:
                                 pass
+                        #If multiple abc123 attendees are detected, unexpected behavior based on database conflicts,
+                        #delete all found and create new from file
+                        except MultipleObjectsReturned:
+                                attendees = AttendeeObject.objects.all()
+                                for a in attendees:
+                                    a.delete()
+                                if re.match(r"\d+", data[0]) and re.match(r"^[\w\.]+@[\w\.]+$", data[10]) \
+                                        and re.match(r"^[a-z]{3}[0-9]{3}$", data[6]):
+                                    attendee = AttendeeObject.objects.create(utsa_id=data[6], last_name=data[7],
+                                                                             first_name=data[8],
+                                                                             email=data[10], group=group_name)
+                                else:
+                                    pass
                         else:
                             # If exception was not called and emails differ, overwrite database entry's email and group name
                             if re.match(r"\d+", data[0]) and re.match(r"^[\w\.]+@[\w\.]+$", data[10]) and attendee.email != data[10]\
@@ -41,6 +55,7 @@ def csv_upload_page(request):
                                 attendee.email = data[10]
                                 attendee.group = group_name
                                 attendee.save()
+                                
                         #create association between workshop and attendee after import attempt
                         # this should work once workshop object is implemented
                         # association = AssociationObject.objects.create()

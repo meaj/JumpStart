@@ -4,10 +4,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from temporary.models import attendee_email_workshop_uuid_association
-from importing.models import attendee as atendeeObject, workshop as workshopObject, email_template as emailObject
+from importing.models import attendee as atendeeObject, email_template as emailObject
 
 from .forms import EmailForm
-
+from workshops import models as workshopObject
 
 # index
 @login_required(login_url='/login/')
@@ -39,7 +39,7 @@ def index(request):
                 if attend.first_name == "kk":
                     temp_attendee = attend
 
-            for workshop in workshopObject.objects.all():
+            for workshop in workshopObject.Workshop.all():
                 if workshop.survey_title == "DAT WORKSHOP":
                     temp_workshop = workshop
             '''
@@ -85,5 +85,5 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = EmailForm()
-
-    return render(request, 'send_email_registrations.html', {'form': form})
+    workshops = workshopObject.Workshop.objects.all()
+    return render(request, 'send_email_registrations.html', {'form': form, 'workshops':workshops })

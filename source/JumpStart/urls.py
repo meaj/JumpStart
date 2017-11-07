@@ -20,7 +20,7 @@ admin.autodiscover()
 from django.conf import settings
 from django.conf.urls.static import static
 import accounts.views
-
+import workshops.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^splash/', include('splash.url')),
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^login/', accounts.views.loginView, name  = 'login'),
     url(r'^logout/', accounts.views.logout_view, name='logout'),
     url(r'^$', index, name='index'), #goes to splash.views.index and loads splash_index_page, bad coding practive
+    url(r'^workshops/', workshops.views.createWorkshop, name='workshops'),
 ]
 
 if settings.DEBUG:
