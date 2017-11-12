@@ -39,8 +39,8 @@ def index(request):
                 if attend.first_name == "kk":
                     temp_attendee = attend
 
-            for workshop in workshopObject.Workshop.all():
-                if workshop.survey_title == "DAT WORKSHOP":
+            for workshop in workshopObject.Workshop.objects.all():
+                if workshop.title == "DAT WORKSHOP":
                     temp_workshop = workshop
             '''
             The for loops look weird because, we have to have models already committed to the database to run these
@@ -63,7 +63,8 @@ def index(request):
                 'attendee_email']  # This is the data pulled from the postform
 
             ''' 
-                This allows the email to read the data stored in the email_templates database 
+                This allows the email to read the data stored in the email_templates database
+                needs to be changed to use specific email template from list of available templates
             '''
             for e in emailObject.objects.all():
                 if e.email_name == "template1":

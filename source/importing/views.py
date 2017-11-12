@@ -1,11 +1,20 @@
 from django.shortcuts import render
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
-from importing.forms import CSV_Form
+from importing.forms import CSV_Form, Email_Template_Form
 from temporary.models import attendee_email_workshop_uuid_association as AssociationObject
 import re
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
+def email_template_page(request):
+    if request.method == "POST":
+        form = Email_Template_Form(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = Email_Template_Form()
+    return render(request, "email_template_page.html", {'form': form})
 
 @login_required(login_url='/login/')
 def csv_upload_page(request):
@@ -27,6 +36,7 @@ def csv_upload_page(request):
                         #checks for abc123 in group instead, and possibly overrite existing db entry in case of email address change
                         try:
                             attendee = AttendeeObject.objects.get(utsa_id=data[6])
+                            print(data[6])
                         except ObjectDoesNotExist:
                             #checks to see if the first data member is a digit, then checks that email and abc123 are vaild
                             if re.match(r"\d+",data[0]) and re.match(r"^[\w\.]+@[\w\.]+$", data[10]) \

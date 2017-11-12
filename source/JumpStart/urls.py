@@ -21,11 +21,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 import accounts.views
 import workshops.views
+import  importing.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^splash/', include('splash.url')),
     url(r'^temporary/', include('temporary.url')),
-    url(r'^csv_upload/', include('importing.url')),
+    url(r'^csv_upload', importing.views.csv_upload_page, name='csv_upload'),
+    url(r'^email_template', importing.views.email_template_page, name='email_template'),
     url(r'^signup/', accounts.views.signUp, name  = 'signUp'),
     url(r'^login/', accounts.views.loginView, name  = 'login'),
     url(r'^logout/', accounts.views.logout_view, name='logout'),

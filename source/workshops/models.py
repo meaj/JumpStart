@@ -7,3 +7,5 @@ class Workshop(models.Model):
     title = models.CharField(max_length=30)
     pub_date = models.DateField()
     owner = models.ForeignKey(User)
+    def __str__(self):
+        return self.title
