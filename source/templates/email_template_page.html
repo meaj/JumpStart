@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <title>Email Template Upload</title>
 </head>
+<h1>Email Template Upload</h1>
 <body>
     <form method ="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload</button>
     </form>
-
-    <!-- I want to add a list of files in the CSV directory -->
 
     <p><a href="{% url 'index' %}">Return to home</a></p>
 </body>

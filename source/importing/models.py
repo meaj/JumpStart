@@ -12,7 +12,7 @@ class faculty(models.Model):
     faculty_email = models.EmailField
 
     def __str__(self):
-        return  self.title + " " + self.last_name
+        return self.title + " " + self.last_name
 
 class attendee(models.Model):
     group = models.CharField(max_length=48,default="group")
@@ -21,6 +21,7 @@ class attendee(models.Model):
     last_name = models.CharField(max_length=48)
     email = models.CharField(max_length=60)
     attendee_email = models.EmailField
+
     def __str__(self):
         return self.group + " : " + self.email
 

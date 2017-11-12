@@ -12,6 +12,7 @@ def email_template_page(request):
         form = Email_Template_Form(request.POST)
         if form.is_valid():
             form.save()
+            #redirect to splash
     else:
         form = Email_Template_Form()
     return render(request, "email_template_page.html", {'form': form})
@@ -28,7 +29,6 @@ def csv_upload_page(request):
                 # gets group name from form, will need to get from workshop in future, possibly rename to workshop name
                 group_name = form.cleaned_data['group']
 
-
                 for line in f:
                     #attempts to split csv line into array wiht 12 indexes until EOF
                     data = line.split(",")
@@ -36,10 +36,9 @@ def csv_upload_page(request):
                         #checks for abc123 in group instead, and possibly overrite existing db entry in case of email address change
                         try:
                             attendee = AttendeeObject.objects.get(utsa_id=data[6])
-                            print(data[6])
                         except ObjectDoesNotExist:
                             #checks to see if the first data member is a digit, then checks that email and abc123 are vaild
-                            if re.match(r"\d+",data[0]) and re.match(r"^[\w\.]+@[\w\.]+$", data[10]) \
+                            if re.match(r"\d+", data[0]) and re.match(r"^[\w.]+@[\w.]+$", data[10]) \
                                         and re.match(r"^[a-z]{3}[0-9]{3}$", data[6]):
                                 attendee = AttendeeObject.objects.create(utsa_id=data[6], last_name=data[7], first_name=data[8],
                                                               email=data[10], group=group_name)
@@ -77,6 +76,7 @@ def csv_upload_page(request):
             csv_file_objects = CSVObject.objects.all()
             for c in csv_file_objects:
                 c.document.delete()
+            #redirect to splash
 
     else:
         form = CSV_Form()
