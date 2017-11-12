@@ -64,7 +64,7 @@ badCSVTestCase14 = "test,csv"
 badCSVTestCase15 = None
 
 class csv_objectTestCase(TestCase):
-    print('touched')
+    print('touched csv tests')
     '''
     description = models.CharField(max_length=46, blank=True)
     document = models.FileField(upload_to='csv_files/')
@@ -168,7 +168,7 @@ class csv_objectTestCase(TestCase):
         self.assertRaises(TypeError)
 
 class utsaId_objectTestCase(TestCase):
-    print('touched')
+    print('touched UTSA ID tests')
     '''
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
@@ -277,7 +277,7 @@ class utsaId_objectTestCase(TestCase):
         self.assertRaises(TypeError)
 
 class email_objectTestCase(TestCase):
-    print('touched')
+    print('touched email tests')
     '''
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
