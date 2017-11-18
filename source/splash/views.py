@@ -9,6 +9,7 @@ from importing.models import attendee as atendeeObject, email_template as emailO
 from .forms import EmailForm
 from workshops import models as workshopObject
 
+
 # index
 @login_required(login_url='/login/')
 def thanks_for_sending_emails(request):
@@ -87,4 +88,4 @@ def index(request):
     else:
         form = EmailForm()
     workshops = workshopObject.Workshop.objects.all()
-    return render(request, 'send_email_registrations.html', {'form': form, 'workshops':workshops })
+    return render(request, 'send_email_registrations.html', {'form': form, 'workshops': workshops})

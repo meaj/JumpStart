@@ -5,8 +5,9 @@
         height: 100%;
         font-family: "Helvetica Neue", Helvetica, sans-serif;
         color: #444;
-        -webkit-font-smoothing: antialiased;	;
+        -webkit-font-smoothing: antialiased;;
     }
+
     #container {
         position: relative;
         width: 340px;
@@ -20,10 +21,12 @@
         border: 1px solid #ccc;
         box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
     }
+
     form {
         margin: 0 auto;
         margin-top: 20px;
     }
+
     label {
         color: #555;
         display: inline-block;
@@ -31,7 +34,6 @@
         padding-top: 10px;
         font-size: 14px;
     }
-
 
     p a {
         font-size: 11px;
@@ -43,27 +45,33 @@
         -moz-transition: all .4s ease;
         transition: all .4s ease;
     }
+
     p a:hover {
         color: #555;
     }
+
     input {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
         font-size: 12px;
         outline: none;
     }
+
     #lower {
         background: #ecf2f5;
         width: 100%;
         height: 58px;
         margin-top: 15px;
     }
+
     input[type=checkbox] {
         margin-left: 20px;
         margin-top: 30px;
     }
+
     .check {
         margin-left: 3px;
     }
+
     input[type=submit] {
         float: right;
         margin-right: 20px;
@@ -108,11 +116,13 @@
         -moz-transition: all .4s ease;
         transition: all .4s ease;
     }
+
     input[type=text]:hover,
     input[type=password]:hover {
         border: 1px solid #FF4500;
         box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .7), 0 0 0 5px #FF4500;
     }
+
     input[type=text]:focus,
     input[type=password]:focus {
         border: 1px solid #FF4500;
@@ -120,43 +130,42 @@
     }
 
 
-
 </style>
 
 
 <div id="container">
-  <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
-  <form method  = "POST" action = "{% url 'signUp' %}">
-    {% csrf_token %}
-    {% if userForm.errors %}
-    {% for field in userForm %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <p style="color: red"> <strong>{{ error|escape }}</strong></p>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in userForm.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
-    {% endif %}
-    <label for="username">Username:</label>
-    {{ userForm.username }}
-    <label for="first_name">First name:(optional)</label>
-    <input type="text" id="username" name="first_name">
-    <label for="username">Last name:(optional)</label>
-    <input type="text" id="username" name="last_name">
-    <label for="username">Email:</label>
-    <input type="text" id="username" name="email">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password1">
-    <label for="password">Confirm password:</label>
-    <input type="password" id="password" name="password2">
-    <div id="lower">
-      <input type="submit" value="Sign Up">
-    </div><!--/ lower-->
-  </form>
+    <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
+    <form method="POST" action="{% url 'signUp' %}">
+        {% csrf_token %}
+        {% if userForm.errors %}
+            {% for field in userForm %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <p style="color: red"><strong>{{ error|escape }}</strong></p>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in userForm.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <label for="username">Username:</label>
+        {{ userForm.username }}
+        <label for="first_name">First name:(optional)</label>
+        <input type="text" id="username" name="first_name">
+        <label for="username">Last name:(optional)</label>
+        <input type="text" id="username" name="last_name">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="email">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password1">
+        <label for="password">Confirm password:</label>
+        <input type="password" id="password" name="password2">
+        <div id="lower">
+            <input type="submit" value="Sign Up">
+        </div><!--/ lower-->
+    </form>
 </div>
 </html>

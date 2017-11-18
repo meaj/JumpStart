@@ -60,6 +60,7 @@
             display: block;
             float: none;
         }
+
         .cancelbtn {
             width: 100%;
         }
@@ -68,17 +69,17 @@
 <div>
 
     <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
-  <br />
+    <br/>
     <h2>Welcome '{{ request.user.username }}' </h2>
 
     {% if workshops %}
         Workshops:
-        <br />
-  {% for workshop in workshops %}
-  <br />
-    {{ workshop.title }}
-  {% endfor %}
-{% endif %}
+        <br/>
+        {% for workshop in workshops %}
+            <br/>
+            {{ workshop.title }}
+        {% endfor %}
+    {% endif %}
     <form action="/action_page.php">
         <div class="imgcontainer">
             <img src=http://education.utsa.edu/images/uploads/Rowdy_Head.gif alt="Avatar" class="avatar">
@@ -87,19 +88,19 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit"/>
         <br>
         <br \>
         <a href="{% url 'csv_upload' %}">Import Emails from CSV</a>
-          <br \>
+        <br \>
         <a href="{% url 'email_template' %}">Add Template Email</a>
-         <br \>
+        <br \>
         <a href="{% url 'workshops' %}">Add workshops</a>
 </div>
 </div>
 </form>
-        <br \>
-        <a type = "submit" href="{% url 'logout' %}">logout</a>
+<br \>
+<a type="submit" href="{% url 'logout' %}">logout</a>
 
 
 </body>

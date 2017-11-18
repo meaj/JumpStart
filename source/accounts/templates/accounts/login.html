@@ -5,8 +5,9 @@
         height: 100%;
         font-family: "Helvetica Neue", Helvetica, sans-serif;
         color: #444;
-        -webkit-font-smoothing: antialiased;	;
+        -webkit-font-smoothing: antialiased;;
     }
+
     #container {
         position: fixed;
         width: 340px;
@@ -20,10 +21,12 @@
         border: 1px solid #ccc;
         box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
     }
+
     form {
         margin: 0 auto;
         margin-top: 20px;
     }
+
     label {
         color: #555;
         display: inline-block;
@@ -31,7 +34,6 @@
         padding-top: 10px;
         font-size: 14px;
     }
-
 
     p a {
         font-size: 11px;
@@ -43,27 +45,33 @@
         -moz-transition: all .4s ease;
         transition: all .4s ease;
     }
+
     p a:hover {
         color: #555;
     }
+
     input {
         font-family: "Helvetica Neue", Helvetica, sans-serif;
         font-size: 12px;
         outline: none;
     }
+
     #lower {
         background: #ecf2f5;
         width: 100%;
         height: 58px;
         margin-top: 15px;
     }
+
     input[type=checkbox] {
         margin-left: 20px;
         margin-top: 30px;
     }
+
     .check {
         margin-left: 3px;
     }
+
     input[type=submit] {
         float: right;
         margin-right: 20px;
@@ -108,11 +116,13 @@
         -moz-transition: all .4s ease;
         transition: all .4s ease;
     }
+
     input[type=text]:hover,
     input[type=password]:hover {
         border: 1px solid #FF4500;
         box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .7), 0 0 0 5px #FF4500;
     }
+
     input[type=text]:focus,
     input[type=password]:focus {
         border: 1px solid #FF4500;
@@ -120,28 +130,26 @@
     }
 
 
-
 </style>
 
 
-
 <div id="container">
-  <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
-  {% if error %}
-  {{error}}
-  {% endif%}
-  <form method  = "POST" action = "{% url 'login' %}">
-    {% csrf_token %}
+    <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
+    {% if error %}
+        {{ error }}
+    {% endif %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
 
-    <label for="username">Username:</label>
+        <label for="username">Username:</label>
 
-    <input type="text" id="username" name="username">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <div id="lower">
-      <label for="checkbox">forgot password</label>
-      <input type="submit" value="Login">
-    </div><!--/ lower-->
-  </form>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <div id="lower">
+            <label for="checkbox">forgot password</label>
+            <input type="submit" value="Login">
+        </div><!--/ lower-->
+    </form>
 </div>
 </html>

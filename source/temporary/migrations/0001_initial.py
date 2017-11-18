@@ -8,7 +8,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -20,10 +19,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='attendee_email_workshop_uuid_association',
             fields=[
-                ('uuid_token_local', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('uuid_token_local',
+                 models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('attendee_clicked_link_local', models.BooleanField(default=False)),
-                ('attendee_local', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='importing.attendee')),
-                ('workshop_local', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='workshops.Workshop')),
+                ('attendee_local',
+                 models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='importing.attendee')),
+                ('workshop_local',
+                 models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='workshops.Workshop')),
             ],
         ),
     ]

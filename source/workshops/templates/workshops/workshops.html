@@ -1,18 +1,18 @@
 <h1> Create New Workshop</h1>
 
-{%if error %}
-{{ error }}
-<br />
-<br />
+{% if error %}
+    {{ error }}
+    <br/>
+    <br/>
 {% endif %}
 
 
-<form method ="POST" action="{url'post:createWorkshop' %}">
-  {%csrf_token %}
-  Title:
-  <br />
-  <input type = "text" name = "title" />
-  <br />
-  <input type = "submit" value = "Post"/>
-  <p><a href="{% url 'index' %}">Return to home</a></p>
+<form method="POST" action="{url'post:createWorkshop' %}">
+    {% csrf_token %}
+    Title:
+    <br/>
+    <input type="text" name="title"/>
+    <br/>
+    <input type="submit" value="Post"/>
+    <p><a href="{% url 'index' %}">Return to home</a></p>
 </form>

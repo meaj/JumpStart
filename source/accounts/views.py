@@ -12,6 +12,7 @@ def logout_view(request):
     logout(request)
     return render(request, 'accounts/login.html')
 
+
 def signUp(request):
     if request.method == 'POST':
         userForm = SignUpForm(request.POST)
@@ -20,7 +21,7 @@ def signUp(request):
             username = userForm.cleaned_data.get('username')
             raw_password = userForm.cleaned_data.get('password1')
             email = userForm.cleaned_data.get('email')
-            user = authenticate(username=username,email = email, password=raw_password)
+            user = authenticate(username=username, email=email, password=raw_password)
             return render(request, 'accounts/login.html')
     else:
         userForm = SignUpForm()
@@ -28,38 +29,39 @@ def signUp(request):
 
 
 def signup(request):
-    #if the user sends infor its a post request
+    # if the user sends infor its a post request
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
-             return createUserIfDoesNotExist(request)
+            return createUserIfDoesNotExist(request)
         else:
             return render(request, 'accounts/signUp.html', {'error': 'Passwords didn\'t match'})
-    else:# its a get request
+    else:  # its a get request
         return render(request, 'accounts/signUp.html')
 
 
 def loginView(request):
-    #if the user sends infor its a post request
+    # if the user sends infor its a post request
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
-            #redirect to succes page
+            login(request, user)
+            # redirect to succes page
             return HttpResponseRedirect('/')
         else:
-            #invalid user
+            # invalid user
             return render(request, 'accounts/login.html', {'error': 'the username and password didn\'t match'})
-    else:# its a get request
+    else:  # its a get request
         return render(request, 'accounts/login.html')
 
 
 def createUserIfDoesNotExist(request):
     try:
         logout(request)
-        User.objects.get(username = request.POST['username'])
+        User.objects.get(username=request.POST['username'])
         return render(request, 'accounts/signUp.html', {'error': 'Username has already been taken'})
     except User.DoesNotExist:
-        user = User.objects.create_user(username =request.POST['username'],email = request.POST['email'], password = request.POST['password1'])
+        user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'],
+                                        password=request.POST['password1'])
         return render(request, 'accounts/login.html')

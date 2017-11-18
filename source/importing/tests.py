@@ -2,7 +2,7 @@ from django.test import TestCase
 from importing.models import attendee, csv_file
 from django.db import models
 
-# 14 email test cases
+# 20 email test cases
 goodEmailTestCase = "Example@email.com"
 goodEmailTestCase2 = ["Example@email.co.uk"]
 goodEmailTestCase3 = ["Ex.ample@email.com"]
@@ -17,6 +17,12 @@ badEmailTestCase6 = "..."
 badEmailTestCase7 = "brosephgmail.com"
 badEmailTestCase8 = ".@."
 badEmailTestCase9 = "broseph@gmail"
+badEmailTestCase10 = "broseph@@gmail.com"
+badEmailTestCase11 = "brosephgmail@com"
+badEmailTestCase12 = "broseph@gmailcom"
+badEmailTestCase13 = "broseph@com"
+badEmailTestCase14 = "broseph"
+badEmailTestCase15 = "#$!@gmail.com"
 
 # 21 UTSA ID test cases
 goodUtsaIdTestCase1 = "abc123"
@@ -41,7 +47,7 @@ badUtsaIdTestCase14 = "ab123"
 badUtsaIdTestCase15 = "ab23"
 badUtsaIdTestCase16 = None
 
-#20 csv file test cases
+# 20 csv file test cases
 goodCSVTestCase1 = "test.csv"
 goodCSVTestCase2 = "test123.csv"
 goodCSVTestCase3 = "test.weird.csv"
@@ -63,6 +69,7 @@ badCSVTestCase13 = "test=csv"
 badCSVTestCase14 = "test,csv"
 badCSVTestCase15 = None
 
+
 class csv_objectTestCase(TestCase):
     print('touched csv tests')
     '''
@@ -73,99 +80,119 @@ class csv_objectTestCase(TestCase):
 
     def test_goodCSVTest1(self):
         csv_file.objects.create(description="test",
-                                document = goodCSVTestCase1
+                                document=goodCSVTestCase1
                                 )
+
     def test_goodCSVTest2(self):
         csv_file.objects.create(description="test",
-                                document = goodCSVTestCase2
+                                document=goodCSVTestCase2
                                 )
+
     def test_goodCSVTest3(self):
         csv_file.objects.create(description="test",
-                                document = goodCSVTestCase3
+                                document=goodCSVTestCase3
                                 )
+
     def test_goodCSVTest4(self):
         csv_file.objects.create(description="test",
-                                document = goodCSVTestCase4
+                                document=goodCSVTestCase4
                                 )
+
     def test_goodCSVTest5(self):
         csv_file.objects.create(description="test",
-                                document = goodCSVTestCase5
+                                document=goodCSVTestCase5
                                 )
+
     def test_badCSVTest1(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase1
+                                document=badCSVTestCase1
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest2(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase2
+                                document=badCSVTestCase2
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest3(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase3
+                                document=badCSVTestCase3
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest4(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase4
+                                document=badCSVTestCase4
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest5(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase5
+                                document=badCSVTestCase5
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest6(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase6
+                                document=badCSVTestCase6
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest7(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase7
+                                document=badCSVTestCase7
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest8(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase8
+                                document=badCSVTestCase8
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest9(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase9
+                                document=badCSVTestCase9
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest10(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase10
+                                document=badCSVTestCase10
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest11(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase11
+                                document=badCSVTestCase11
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest12(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase12
+                                document=badCSVTestCase12
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest13(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase13
+                                document=badCSVTestCase13
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest14(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase14
+                                document=badCSVTestCase14
                                 )
         self.assertRaises(TypeError)
+
     def test_badCSVTest15(self):
         csv_file.objects.create(description="test",
-                                document = badCSVTestCase15
+                                document=badCSVTestCase15
                                 )
         self.assertRaises(TypeError)
+
 
 class utsaId_objectTestCase(TestCase):
     print('touched UTSA ID tests')
@@ -177,104 +204,125 @@ class utsaId_objectTestCase(TestCase):
 
     def test_goodUtsaIdTest1(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = goodUtsaIdTestCase1
+                                utsa_id=goodUtsaIdTestCase1
                                 )
+
     def test_goodUtsaIdTest2(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = goodUtsaIdTestCase2
+                                utsa_id=goodUtsaIdTestCase2
                                 )
+
     def test_goodUtsaIdTest3(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = goodUtsaIdTestCase3
+                                utsa_id=goodUtsaIdTestCase3
                                 )
+
     def test_goodUtsaIdTest4(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = goodUtsaIdTestCase4
+                                utsa_id=goodUtsaIdTestCase4
                                 )
+
     def test_goodUtsaIdTest5(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = goodUtsaIdTestCase5
+                                utsa_id=goodUtsaIdTestCase5
                                 )
+
     def test_badUtsaIdTest1(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase1
+                                utsa_id=badUtsaIdTestCase1
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest2(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase2
+                                utsa_id=badUtsaIdTestCase2
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest3(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase3
+                                utsa_id=badUtsaIdTestCase3
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest4(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase4
+                                utsa_id=badUtsaIdTestCase4
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest5(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase5
+                                utsa_id=badUtsaIdTestCase5
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest6(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase6
+                                utsa_id=badUtsaIdTestCase6
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest7(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase7
+                                utsa_id=badUtsaIdTestCase7
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest8(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase8
+                                utsa_id=badUtsaIdTestCase8
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest9(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase9
+                                utsa_id=badUtsaIdTestCase9
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest10(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase10
+                                utsa_id=badUtsaIdTestCase10
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest11(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase11
+                                utsa_id=badUtsaIdTestCase11
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest12(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase12
+                                utsa_id=badUtsaIdTestCase12
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest13(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase13
+                                utsa_id=badUtsaIdTestCase13
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest14(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase14
+                                utsa_id=badUtsaIdTestCase14
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest15(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase15
+                                utsa_id=badUtsaIdTestCase15
                                 )
         self.assertRaises(TypeError)
+
     def test_badUtsaIdTest16(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                utsa_id = badUtsaIdTestCase16
+                                utsa_id=badUtsaIdTestCase16
                                 )
         self.assertRaises(TypeError)
+
 
 class email_objectTestCase(TestCase):
     print('touched email tests')
@@ -287,23 +335,27 @@ class email_objectTestCase(TestCase):
 
     def test_goodEmailTest1(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email = 'example@gmail.com'
+                                email='example@gmail.com'
                                 )
+
     def test_goodEmailTest2(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email = goodEmailTestCase2
+                                email=goodEmailTestCase2
                                 )
+
     def test_goodEmailTest3(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email = goodEmailTestCase3
+                                email=goodEmailTestCase3
                                 )
+
     def test_goodEmailTest4(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email = goodEmailTestCase4
+                                email=goodEmailTestCase4
                                 )
+
     def test_goodEmailTest5(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email = goodEmailTestCase5
+                                email=goodEmailTestCase5
                                 )
 
     def test_badEmailTest1(self):
@@ -312,7 +364,7 @@ class email_objectTestCase(TestCase):
                                 )
         self.assertRaises(TypeError)
 
-    def badEmailTestCase2(self):
+    def test_badEmailTestCase2(self):
         attendee.objects.create(first_name="name", last_name="fast",
                                 email=badEmailTestCase2
                                 )
@@ -332,7 +384,7 @@ class email_objectTestCase(TestCase):
 
     def test_badEmailTest5(self):
         attendee.objects.create(first_name="name", last_name="fast",
-                                email=None
+                                email=badEmailTestCase5
                                 )
         self.assertRaises(TypeError)
 
@@ -341,6 +393,7 @@ class email_objectTestCase(TestCase):
                                 email=badEmailTestCase6
                                 )
         self.assertRaises(TypeError)
+
     def test_badEmailTest7(self):
         attendee.objects.create(first_name="name", last_name="fast",
                                 email=badEmailTestCase7
@@ -356,5 +409,40 @@ class email_objectTestCase(TestCase):
     def test_badEmailTest9(self):
         attendee.objects.create(first_name="name", last_name="fast",
                                 email=badEmailTestCase9
+                                )
+        self.assertRaises(TypeError)
+    def test_badEmailTest10(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase10
+                                )
+        self.assertRaises(TypeError)
+
+    def test_badEmailTest11(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase11
+                                )
+        self.assertRaises(TypeError)
+
+    def test_badEmailTest12(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase12
+                                )
+        self.assertRaises(TypeError)
+
+    def test_badEmailTest13(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase13
+                                )
+        self.assertRaises(TypeError)
+
+    def test_badEmailTest14(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase14
+                                )
+        self.assertRaises(TypeError)
+
+    def test_badEmailTest15(self):
+        attendee.objects.create(first_name="name", last_name="fast",
+                                email=badEmailTestCase15
                                 )
         self.assertRaises(TypeError)
