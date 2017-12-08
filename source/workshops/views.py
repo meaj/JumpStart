@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from . import models
@@ -14,7 +14,7 @@ def createWorkshop(request):
             workshop.pub_date = timezone.datetime.now()
             workshop.owner = request.user
             workshop.save()
-            return render(request, 'send_email_registrations.html')
+            return redirect('/?next=/')
         else:
             return render(request, 'workshops/workshops.html', {'error': 'ERROR: You must include a Title'})
     else:
