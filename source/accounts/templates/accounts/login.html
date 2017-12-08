@@ -138,7 +138,7 @@
     {% if error %}
         {{ error }}
     {% endif %}
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{% url 'accounts:login' %}">
         {% csrf_token %}
 
         <label for="username">Username:</label>

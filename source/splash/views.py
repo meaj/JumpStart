@@ -11,16 +11,12 @@ from workshops import models as workshopObject
 
 
 # index
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
 
-def login_page(request):
-    return render(request, 'login_page.html', {})
-
-
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def index(request):
     if request.method == 'POST':
 

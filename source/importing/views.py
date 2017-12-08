@@ -7,7 +7,7 @@ import re
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def email_template_page(request):
     if request.method == "POST":
         form = Email_Template_Form(request.POST)
@@ -20,7 +20,7 @@ def email_template_page(request):
     return render(request, "email_template_page.html", {'form': form})
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def csv_upload_page(request):
     if request.method == "POST":
         form = CSV_Form(request.POST, request.FILES)
@@ -88,4 +88,4 @@ def csv_upload_page(request):
 
     else:
         form = CSV_Form()
-    return render(request, "csv_upload.html", {'form': form})
+    return render(request, "importing/csv_upload.html", {'form': form})

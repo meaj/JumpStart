@@ -30,9 +30,7 @@ urlpatterns = [
     url(r'^temporary/', include('temporary.url')),
     url(r'^csv_upload', importing.views.csv_upload_page, name='csv_upload'),
     url(r'^email_template', importing.views.email_template_page, name='email_template'),
-    url(r'^signup/', accounts.views.signUp, name='signUp'),
-    url(r'^login/', accounts.views.loginView, name='login'),
-    url(r'^logout/', accounts.views.logout_view, name='logout'),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^$', index, name='index'),  # goes to splash.views.index and loads splash_index_page, bad coding practive
     url(r'^workshops/', workshops.views.createWorkshop, name='workshops'),
 ]
