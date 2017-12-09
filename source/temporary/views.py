@@ -20,5 +20,6 @@ def temp_uuid_page(request, uuid):
             # attendee_full_name = attendee_workshop.attendee.first_name + " " + attendee_workshop.attendee.last_name
             #  workshop_name =  attendee_workshop.workshop.survery_title
             # No attendee objects and no workshop objects currently created to test data
-            return render(request, "thanks_for_registering.html", {'uuid_name': str(attendee_workshop.uuid_token)})
+            return render(request, "thanks_for_registering.html",
+                          {'uuid_name': str(attendee_workshop.uuid_token)})
     return render(request, "unknown_uuid.html", {})

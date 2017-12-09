@@ -134,22 +134,23 @@
 
 
 <div id="container">
-    <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
+    <img src="http://i63.tinypic.com/b6a683.jpg" border="0"
+         alt="Image and video hosting by TinyPic">
     <form method="POST" action="{% url 'signUp' %}">
         {% csrf_token %}
         {% if userForm.errors %}
-            {% for field in userForm %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger">
-                        <p style="color: red"><strong>{{ error|escape }}</strong></p>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in userForm.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
+        {% for field in userForm %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <p style="color: red"><strong>{{ error|escape }}</strong></p>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in userForm.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
         {% endif %}
         <label for="username">Username:</label>
         {{ userForm.username }}

@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from splash.views import index  # probably bad coding practice but, it defaults to a "splash" screen
+from splash.views import \
+    index  # probably bad coding practice but, it defaults to a "splash" screen
 
 admin.autodiscover()
 from django.conf import settings
@@ -29,9 +30,11 @@ urlpatterns = [
     url(r'^splash/', include('splash.url')),
     url(r'^temporary/', include('temporary.url')),
     url(r'^csv_upload', importing.views.csv_upload_page, name='csv_upload'),
-    url(r'^email_template', importing.views.email_template_page, name='email_template'),
+    url(r'^email_template', importing.views.email_template_page,
+        name='email_template'),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^$', index, name='index'),  # goes to splash.views.index and loads splash_index_page, bad coding practive
+    url(r'^$', index, name='index'),
+    # goes to splash.views.index and loads splash_index_page, bad coding practive
     url(r'^workshops/', workshops.views.createWorkshop, name='workshops'),
 ]
 
