@@ -4,22 +4,20 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from temporary.models import attendee_email_workshop_uuid_association
-from importing.models import attendee as atendeeObject, workshop as workshopObject, email_template as emailObject
+from importing.models import attendee as atendeeObject, \
+    email_template as emailObject
 
 from .forms import EmailForm
+from workshops import models as workshopObject
 
 
 # index
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def thanks_for_sending_emails(request):
     return render(request, 'emails_have_been_sent.html', {})
 
 
-def login_page(request):
-    return render(request, 'login_page.html', {})
-
-
-@login_required(login_url='/login/')
+@login_required(login_url='accounts/login/')
 def index(request):
     if request.method == 'POST':
 
@@ -39,8 +37,8 @@ def index(request):
                 if attend.first_name == "kk":
                     temp_attendee = attend
 
-            for workshop in workshopObject.objects.all():
-                if workshop.survey_title == "DAT WORKSHOP":
+            for workshop in workshopObject.Workshop.objects.all():
+                if workshop.title == "DAT WORKSHOP":
                     temp_workshop = workshop
             '''
             The for loops look weird because, we have to have models already committed to the database to run these
@@ -56,14 +54,17 @@ def index(request):
                 print(str(x.uuid_token))
 
             local_subject = "this is test"
-            email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
+            email_string = "http://" + str(
+                request.get_host()) + "/temporary/" + str(
+                temp_association.uuid_token)
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
             local_target_email_addresses = form.cleaned_data[
                 'attendee_email']  # This is the data pulled from the postform
 
             ''' 
-                This allows the email to read the data stored in the email_templates database 
+                This allows the email to read the data stored in the email_templates database
+                needs to be changed to use specific email template from list of available templates
             '''
             for e in emailObject.objects.all():
                 if e.email_name == "template1":
@@ -85,5 +86,6 @@ def index(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = EmailForm()
-
-    return render(request, 'send_email_registrations.html', {'form': form})
+    workshops = workshopObject.Workshop.objects.all()
+    return render(request, 'send_email_registrations.html',
+                  {'form': form, 'workshops': workshops})
