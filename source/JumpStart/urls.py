@@ -33,15 +33,9 @@ urlpatterns = [
     url(r'^email_template', importing.views.email_template_page,
         name='email_template'),
     url(r'^accounts/', include('accounts.urls')),
-<<<<<<< HEAD
     url(r'^$', index, name='index'),  # goes to splash.views.index and loads splash_index_page, bad coding practive
     url(r'^workshops/', include('workshops.urls')),
-=======
     url(r'^$', index, name='index'),
     # goes to splash.views.index and loads splash_index_page, bad coding practive
     url(r'^workshops/', workshops.views.createWorkshop, name='workshops'),
->>>>>>> 136631505a245630f18f90079b67c3d4869a1ef5
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

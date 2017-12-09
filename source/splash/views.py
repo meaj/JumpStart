@@ -27,7 +27,7 @@ def index(request):
             '''
             the entry of the form is valid. The code called this function again so, but, its valid this time so we form
             data has been filled out and we can now acces it, we cannot access it if it is not valid
-
+            news entr
             '''
             temp_attendee = ""
             temp_workshop = ""
@@ -87,10 +87,5 @@ def index(request):
     else:
         form = EmailForm()
     workshops = workshopObject.Workshop.objects.all()
-<<<<<<< HEAD
     user = request.user
     return render(request, 'send_email_registrations.html', {'form': form, 'workshops': workshops,'user':user})
-=======
-    return render(request, 'send_email_registrations.html',
-                  {'form': form, 'workshops': workshops})
->>>>>>> 136631505a245630f18f90079b67c3d4869a1ef5
