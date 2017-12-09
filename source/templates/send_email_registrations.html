@@ -68,11 +68,13 @@
 </style>
 <div>
 
-    <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
+    <img src="http://i63.tinypic.com/b6a683.jpg" border="0"
+         alt="Image and video hosting by TinyPic">
     <br/>
     <h2>Welcome '{{ request.user.username }}' </h2>
 
     {% if workshops %}
+<<<<<<< HEAD
         Workshops:
         <br/>
         {% for workshop in workshops %}
@@ -84,10 +86,19 @@
                     <br />
             {% endif%}
         {% endfor %}
+=======
+    Workshops:
+    <br/>
+    {% for workshop in workshops %}
+    <br/>
+    {{ workshop.title }}
+    {% endfor %}
+>>>>>>> 136631505a245630f18f90079b67c3d4869a1ef5
     {% endif %}
     <form action="/action_page.php">
         <div class="imgcontainer">
-            <img src=http://education.utsa.edu/images/uploads/Rowdy_Head.gif alt="Avatar" class="avatar">
+            <img src=http://education.utsa.edu/images/uploads/Rowdy_Head.gif
+                 alt="Avatar" class="avatar">
 
     </form>
     <form action="" method="post">

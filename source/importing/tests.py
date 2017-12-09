@@ -411,6 +411,7 @@ class email_objectTestCase(TestCase):
                                 email=badEmailTestCase9
                                 )
         self.assertRaises(TypeError)
+
     def test_badEmailTest10(self):
         attendee.objects.create(first_name="name", last_name="fast",
                                 email=badEmailTestCase10

@@ -16,7 +16,9 @@ class Migration(migrations.Migration):
             name='attendee',
             fields=[
                 ('group', models.CharField(default='group', max_length=48)),
-                ('utsa_id', models.CharField(default='abc123', max_length=6, primary_key=True, serialize=False)),
+                ('utsa_id', models.CharField(default='abc123', max_length=6,
+                                             primary_key=True,
+                                             serialize=False)),
                 ('first_name', models.CharField(max_length=48)),
                 ('last_name', models.CharField(max_length=48)),
                 ('email', models.CharField(max_length=60)),
@@ -25,7 +27,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='csv_file',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('description', models.CharField(blank=True, max_length=46)),
                 ('document', models.FileField(upload_to='csv_files/')),
                 ('uploaded_at', models.DateTimeField(auto_now_add=True)),
@@ -34,17 +37,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='email_template',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('email_name', models.CharField(default='name', max_length=16)),
-                ('email_subject', models.CharField(default='subject', max_length=48)),
-                ('email_body', models.TextField(default='body', max_length=2000)),
-                ('email_signature', models.CharField(default='jumpstartutsa@gmail.com', max_length=48)),
+                ('email_subject',
+                 models.CharField(default='subject', max_length=48)),
+                ('email_body',
+                 models.TextField(default='body', max_length=2000)),
+                ('email_signature',
+                 models.CharField(default='jumpstartutsa@gmail.com',
+                                  max_length=48)),
             ],
         ),
         migrations.CreateModel(
             name='faculty',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=48)),
                 ('last_name', models.CharField(max_length=48)),
                 ('department', models.CharField(max_length=48)),
