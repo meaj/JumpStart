@@ -77,7 +77,12 @@
         <br/>
         {% for workshop in workshops %}
             <br/>
-            {{ workshop.title }}
+            {% if workshop.owner == user %}
+                    <a href="{% url 'workshop:workshopdetails' workshop.id %}">{{ workshop.title}}<a/>
+                     <br />
+                    {{ workshop.pub_date }} by {{ workshop.owner.username}}
+                    <br />
+            {% endif%}
         {% endfor %}
     {% endif %}
     <form action="/action_page.php">
@@ -95,7 +100,7 @@
         <br \>
         <a href="{% url 'email_template' %}">Add Template Email</a>
         <br \>
-        <a href="{% url 'workshops' %}">Add workshops</a>
+        <a href="{% url 'workshop:workshops' %}">Add workshops</a>
 </div>
 </div>
 </form>

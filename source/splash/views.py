@@ -84,4 +84,5 @@ def index(request):
     else:
         form = EmailForm()
     workshops = workshopObject.Workshop.objects.all()
-    return render(request, 'send_email_registrations.html', {'form': form, 'workshops': workshops})
+    user = request.user
+    return render(request, 'send_email_registrations.html', {'form': form, 'workshops': workshops,'user':user})
