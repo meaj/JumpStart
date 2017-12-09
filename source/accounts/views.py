@@ -21,7 +21,8 @@ def signUp(request):
             username = userForm.cleaned_data.get('username')
             raw_password = userForm.cleaned_data.get('password1')
             email = userForm.cleaned_data.get('email')
-            user = authenticate(username=username, email=email, password=raw_password)
+            user = authenticate(username=username, email=email,
+                                password=raw_password)
             return render(request, 'accounts/login.html')
     else:
         userForm = SignUpForm()
@@ -34,7 +35,8 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             return createUserIfDoesNotExist(request)
         else:
-            return render(request, 'accounts/signUp.html', {'error': 'Passwords didn\'t match'})
+            return render(request, 'accounts/signUp.html',
+                          {'error': 'Passwords didn\'t match'})
     else:  # its a get request
         return render(request, 'accounts/signUp.html')
 
@@ -51,7 +53,8 @@ def loginView(request):
             return HttpResponseRedirect('/')
         else:
             # invalid user
-            return render(request, 'accounts/login.html', {'error': 'the username and password didn\'t match'})
+            return render(request, 'accounts/login.html',
+                          {'error': 'the username and password didn\'t match'})
     else:  # its a get request
         return render(request, 'accounts/login.html')
 
@@ -60,8 +63,10 @@ def createUserIfDoesNotExist(request):
     try:
         logout(request)
         User.objects.get(username=request.POST['username'])
-        return render(request, 'accounts/signUp.html', {'error': 'Username has already been taken'})
+        return render(request, 'accounts/signUp.html',
+                      {'error': 'Username has already been taken'})
     except User.DoesNotExist:
-        user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'],
+        user = User.objects.create_user(username=request.POST['username'],
+                                        email=request.POST['email'],
                                         password=request.POST['password1'])
         return render(request, 'accounts/login.html')

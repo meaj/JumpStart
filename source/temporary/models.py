@@ -11,9 +11,12 @@ def generate_uuid():
 
 
 class attendee_email_workshop_uuid_association(models.Model):
-    uuid_token_local = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    attendee_local = models.ForeignKey(attendeeObject, on_delete=models.CASCADE, default=1)
-    workshop_local = models.ForeignKey(workshopObject, on_delete=models.CASCADE, default=1)
+    uuid_token_local = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                                        editable=False)
+    attendee_local = models.ForeignKey(attendeeObject, on_delete=models.CASCADE,
+                                       default=1)
+    workshop_local = models.ForeignKey(workshopObject, on_delete=models.CASCADE,
+                                       default=1)
     attendee_clicked_link_local = models.BooleanField(default=False)
 
     @property
@@ -29,7 +32,8 @@ class attendee_email_workshop_uuid_association(models.Model):
         return self.workshop
 
     def setup_association(self, intput_attendee, input_workshop):
-        if (intput_attendee is attendeeObject and input_workshop is workshopObject):
+        if (
+                intput_attendee is attendeeObject and input_workshop is workshopObject):
             self.attendee_local = intput_attendee
             self.workshop_local = input_workshop
 

@@ -134,9 +134,10 @@
 
 
 <div id="container">
-    <img src="http://i63.tinypic.com/b6a683.jpg" border="0" alt="Image and video hosting by TinyPic">
+    <img src="http://i63.tinypic.com/b6a683.jpg" border="0"
+         alt="Image and video hosting by TinyPic">
     {% if error %}
-        {{ error }}
+    {{ error }}
     {% endif %}
     <form method="POST" action="{% url 'accounts:login' %}">
         {% csrf_token %}

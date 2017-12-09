@@ -13,4 +13,5 @@ class CSV_Form(forms.ModelForm):
 class Email_Template_Form(forms.ModelForm):
     class Meta:
         model = email_template
-        fields = ('email_name', 'email_subject', 'email_body', 'email_signature')
+        fields = (
+        'email_name', 'email_subject', 'email_body', 'email_signature')

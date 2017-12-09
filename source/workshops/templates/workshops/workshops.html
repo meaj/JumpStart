@@ -1,9 +1,9 @@
 <h1> Create New Workshop</h1>
 
 {% if error %}
-    {{ error }}
-    <br/>
-    <br/>
+{{ error }}
+<br/>
+<br/>
 {% endif %}
 
 
@@ -15,5 +15,5 @@
     <br/>
     <input type="submit" value="Post"/>
 </form>
-    <p><a href="{% url 'index' %}">Return to home</a></p>
+<p><a href="{% url 'index' %}">Return to home</a></p>
 

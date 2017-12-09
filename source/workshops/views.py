@@ -16,6 +16,7 @@ def createWorkshop(request):
             workshop.save()
             return redirect('/?next=/')
         else:
-            return render(request, 'workshops/workshops.html', {'error': 'ERROR: You must include a Title'})
+            return render(request, 'workshops/workshops.html',
+                          {'error': 'ERROR: You must include a Title'})
     else:
         return render(request, 'workshops/workshops.html')

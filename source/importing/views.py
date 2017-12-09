@@ -2,7 +2,8 @@ from django.shortcuts import render
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from importing.forms import CSV_Form, Email_Template_Form
-from temporary.models import attendee_email_workshop_uuid_association as AssociationObject
+from temporary.models import \
+    attendee_email_workshop_uuid_association as AssociationObject
 import re
 from django.contrib.auth.decorators import login_required
 
@@ -39,15 +40,19 @@ def csv_upload_page(request):
                         # checks for abc123 in group instead, and possibly
                         # overrite existing db entry in case of email address change
                         try:
-                            attendee = AttendeeObject.objects.get(utsa_id=data[6])
+                            attendee = AttendeeObject.objects.get(
+                                utsa_id=data[6])
                         except ObjectDoesNotExist:
                             # checks to see if the first data member is a digit,
                             # then checks that email and abc123 are vaild
-                            if re.match(r"\d+", data[0]) and re.match(r"^[\w.]+@[\w.]+$", data[10]) \
-                                    and re.match(r"^[a-z]{3}[0-9]{3}$", data[6]):
-                                attendee = AttendeeObject.objects.create(utsa_id=data[6], last_name=data[7],
-                                                                         first_name=data[8],
-                                                                         email=data[10], group=group_name)
+                            if re.match(r"\d+", data[0]) and re.match(
+                                    r"^[\w.]+@[\w.]+$", data[10]) \
+                                    and re.match(r"^[a-z]{3}[0-9]{3}$",
+                                                 data[6]):
+                                attendee = AttendeeObject.objects.create(
+                                    utsa_id=data[6], last_name=data[7],
+                                    first_name=data[8],
+                                    email=data[10], group=group_name)
                             else:
                                 pass
                         # If multiple abc123 attendees are detected, unexpected behavior based on database conflicts,
@@ -56,18 +61,22 @@ def csv_upload_page(request):
                             attendees = AttendeeObject.objects.all()
                             for a in attendees:
                                 a.delete()
-                            if re.match(r"\d+", data[0]) and re.match(r"^[\w.]+@[\w.]+$", data[10]) \
-                                    and re.match(r"^[a-z]{3}[0-9]{3}$", data[6]):
-                                attendee = AttendeeObject.objects.create(utsa_id=data[6], last_name=data[7],
-                                                                         first_name=data[8],
-                                                                         email=data[10], group=group_name)
+                            if re.match(r"\d+", data[0]) and re.match(
+                                    r"^[\w.]+@[\w.]+$", data[10]) \
+                                    and re.match(r"^[a-z]{3}[0-9]{3}$",
+                                                 data[6]):
+                                attendee = AttendeeObject.objects.create(
+                                    utsa_id=data[6], last_name=data[7],
+                                    first_name=data[8],
+                                    email=data[10], group=group_name)
                             else:
                                 pass
                         else:
                             # If exception was not called and emails differ,
                             # overwrite database entry's email and group name
-                            if re.match(r"\d+", data[0]) and re.match(r"^[\w.]+@[\w.]+$",
-                                                                      data[10]) and attendee.email != data[10] \
+                            if re.match(r"\d+", data[0]) and re.match(
+                                    r"^[\w.]+@[\w.]+$",
+                                    data[10]) and attendee.email != data[10] \
                                     and attendee.group != group_name:
                                 attendee.email = data[10]
                                 attendee.group = group_name

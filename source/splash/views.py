@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from temporary.models import attendee_email_workshop_uuid_association
-from importing.models import attendee as atendeeObject, email_template as emailObject
+from importing.models import attendee as atendeeObject, \
+    email_template as emailObject
 
 from .forms import EmailForm
 from workshops import models as workshopObject
@@ -53,7 +54,9 @@ def index(request):
                 print(str(x.uuid_token))
 
             local_subject = "this is test"
-            email_string = "http://" + str(request.get_host()) + "/temporary/" + str(temp_association.uuid_token)
+            email_string = "http://" + str(
+                request.get_host()) + "/temporary/" + str(
+                temp_association.uuid_token)
             local_message = "this is the body text of the email\n hola mi amigo!\n " + email_string + "\n"
             local_email_sender = "jumpstartutsa@gmail.com"
             local_target_email_addresses = form.cleaned_data[
@@ -84,4 +87,5 @@ def index(request):
     else:
         form = EmailForm()
     workshops = workshopObject.Workshop.objects.all()
-    return render(request, 'send_email_registrations.html', {'form': form, 'workshops': workshops})
+    return render(request, 'send_email_registrations.html',
+                  {'form': form, 'workshops': workshops})
