@@ -1,6 +1,6 @@
 import csv
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from importing.forms import CSV_Form, Email_Template_Form
@@ -8,7 +8,7 @@ from temporary.models import \
     attendee_email_workshop_uuid_association as AssociationObject
 import re
 from django.contrib.auth.decorators import login_required
-
+from . import models
 
 @login_required(login_url='accounts/login/')
 def email_template_page(request):
@@ -84,13 +84,13 @@ def process_file(form, f):
 
 
 @login_required(login_url='accounts/login/')
-def csv_upload_page(request):
+def csv_upload_page(request,pk):
     if request.method == "POST":
         form = CSV_Form(request.POST, request.FILES)
         if form.is_valid():
             process_file(form, request.FILES['document'])
             # redirect to page confirming success
-
     else:
         form = CSV_Form()
-    return render(request, "importing/csv_upload.html", {'form': form})
+    workshop = get_object_or_404(models.Workshop, pk=pk)
+    return render(request, "importing/csv_upload.html", {'form': form,'workshop':workshop})
