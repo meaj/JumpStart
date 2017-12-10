@@ -27,7 +27,6 @@ def index(request):
             '''
             the entry of the form is valid. The code called this function again so, but, its valid this time so we form
             data has been filled out and we can now acces it, we cannot access it if it is not valid
-            news entr
             '''
             temp_attendee = ""
             temp_workshop = ""

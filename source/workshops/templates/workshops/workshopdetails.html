@@ -1,1 +1,22 @@
-Welcome to workshop {{ workshop.title }}
+{% extends 'navbar.html' %}
+
+{% block content %}
+    <h1>Welcome to workshop {{ workshop.title }}</h1>
+    <br/>
+    <h3>-Sessions</h3>
+    <br/>
+    <br/>
+    <h3>-Add invitee's to your workshop</h3>
+    <a class = "btn btn-primary" href = "{% url 'csv_upload' %}"> CSV Upload</a>
+    <br/>
+    <br/>
+    <h3>-Email invitee's </h3>
+    <br/>
+    <br/>
+    <h3>-Check people registered to the workshop</h3>
+    <br/>
+    <br/>
+    <h3>-Create survey for the workshop</h3>
+
+
+{% endblock %} }}
