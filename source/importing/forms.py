@@ -14,4 +14,4 @@ class Email_Template_Form(forms.ModelForm):
     class Meta:
         model = email_template
         fields = (
-        'email_name', 'email_subject', 'email_body', 'email_signature')
+        'email_subject', 'email_body', 'email_signature')

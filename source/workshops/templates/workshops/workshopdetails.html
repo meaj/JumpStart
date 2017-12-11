@@ -17,7 +17,7 @@
                 {{ association.attendee_local.email }}
                 <br />
         {% endfor %}
-        <a class = "btn btn-primary" href = ""> Send Emails</a>
+        <a class = "btn btn-primary" href = "{% url 'workshop:bulkemail' workshop.id %} "> Send Emails</a>
     {% endif %}
     <br/>
     <br/>

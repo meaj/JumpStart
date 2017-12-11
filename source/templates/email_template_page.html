@@ -5,17 +5,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Email Template Upload</title>
+    <title>Prepare Email for Bulk Sending</title>
 </head>
-<h1>Email Template Upload</h1>
+<h1>Prepare Email for Bulk Sending</h1>
 <body>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button type="submit">Send Bulk Email</button>
 </form>
 
-<p><a href="{% url 'index' %}">Return to home</a></p>
+<!--<p><a href="{% url 'index' %}">Return to home</a></p>-->
 </body>
 </html>
 {% endblock %}

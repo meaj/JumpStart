@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <title>CSV File Upload</title>
 </head>
-{{ workshop.title }}
+<h2><a  href = "{% url 'workshop:workshopdetails' workshop.id %} "> {{ workshop.title }}</a></h2>
+
 <h1>CSV File Upload</h1>
 <body>
 <form method="post" enctype="multipart/form-data">
@@ -16,6 +17,7 @@
     {{ form.as_p }}
     <button type="submit">Upload</button>
 </form>
+<h4>{% if success %} {{ success }}{% endif %}</h4>
 
 </body>
 </html>

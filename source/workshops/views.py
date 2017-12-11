@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
@@ -43,11 +44,30 @@ def createSession(request, pk):
     return render(request, 'workshops/createSession.html',{'workshop': workshop})
 
 @login_required(login_url='accounts/login/')
-def email_template_page(request):
+def bulk_email_page(request, pk):
     if request.method == "POST":
         form = Email_Template_Form(request.POST)
         if form.is_valid():
-            form.save()
+            workshop = get_object_or_404(Workshop, pk=pk)
+            workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
+            for association in workshop_associations:
+                temp_attendee = association.attendee_local
+                #may need to change
+                email_string = "http://" + str(
+                    request.get_host()) + "/temporary/" + str(
+                    association.uuid_token)
+                temp_body = form.cleaned_data['email_body'] + "\nYour unique email link is:\n" + email_string + "\n\n" + form.cleaned_data['email_signature'] + "\n"
+                send_mail(
+                    form.cleaned_data['email_subject'],
+                    temp_body,
+                    form.cleaned_data['email_signature'],
+                    [temp_attendee.email],
+                    fail_silently=False
+                )
+
+
+            # form.save()
+            # email to a user
             # ensure that all fields are filled out or error
             # redirect page confirming success
     else:
@@ -128,13 +148,15 @@ def process_file(form, f, workshop):
 
 @login_required(login_url='accounts/login/')
 def csv_upload_page(request,pk):
+    success = ""
     if request.method == "POST":
         form = CSV_Form(request.POST, request.FILES)
         if form.is_valid():
             workshop = get_object_or_404(models.Workshop, pk=pk)
             process_file(form, request.FILES['document'], workshop)
+            success = "Added Invitees to Workshop!"
             # redirect to page confirming success
     else:
         form = CSV_Form()
     workshop = get_object_or_404(Workshop, pk=pk)
-    return render(request, "workshops/csv_upload.html", {'form': form,'workshop':workshop})
+    return render(request, "workshops/csv_upload.html", {'form': form,'workshop':workshop,'success':success})
