@@ -1,3 +1,6 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
 <!DOCTYPE html>
 <html>
 
@@ -69,31 +72,34 @@
 <div>
 
     <img src="http://i63.tinypic.com/b6a683.jpg" border="0"
-         alt="Image and video hosting by TinyPic">
-    <br/>
+             alt="Image and video hosting by TinyPic">
     <h2>Welcome '{{ request.user.username }}' </h2>
-
+    <br />
     {% if workshops %}
-<<<<<<< HEAD
-        Workshops:
-        <br/>
+
+        <h3>Your Workshops:</h3>
         {% for workshop in workshops %}
-            <br/>
-            {{ workshop.title }}
+            {% if workshop.owner == user %}
+                <table>
+                    <tr>
+                        <td><a href="{% url 'workshop:workshopdetails' workshop.id %}">{{ workshop.title}}</a><br />
+                    {{ workshop.pub_date }} by {{ workshop.owner.username}}</td>
+                    </tr>
+                </table>
+                <br />
+            {% endif%}
         {% endfor %}
-=======
-    Workshops:
-    <br/>
-    {% for workshop in workshops %}
-    <br/>
-    {{ workshop.title }}
-    {% endfor %}
->>>>>>> 136631505a245630f18f90079b67c3d4869a1ef5
     {% endif %}
+            <a class = "btn btn-primary" href = "{% url 'workshop:create_workshop' %}"> Create new Workshop</a>
+              <br />
+
+
+
     <form action="/action_page.php">
         <div class="imgcontainer">
             <img src=http://education.utsa.edu/images/uploads/Rowdy_Head.gif
                  alt="Avatar" class="avatar">
+        </div>
 
     </form>
     <form action="" method="post">
@@ -102,19 +108,16 @@
         <input type="submit" value="Submit"/>
         <br>
         <br \>
-        <a href="{% url 'csv_upload' %}">Import Emails from CSV</a>
-        <br \>
+       <!-- <a href="{% url 'csv_upload' %}">Import Emails from CSV</a>
+        <br \> -->
         <a href="{% url 'email_template' %}">Add Template Email</a>
         <br \>
-        <a href="{% url 'workshops' %}">Add workshops</a>
+    </form>
 </div>
-</div>
-</form>
 <br \>
-<a type="submit" href="{% url 'accounts:logout' %}">logout</a>
 
-
-</body>
 </html>
+
+{% endblock %}
 
 
