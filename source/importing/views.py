@@ -84,7 +84,7 @@ def process_file(form, f):
 
 
 @login_required(login_url='accounts/login/')
-def csv_upload_page(request,pk):
+def csv_upload_page(request):
     if request.method == "POST":
         form = CSV_Form(request.POST, request.FILES)
         if form.is_valid():
@@ -92,5 +92,4 @@ def csv_upload_page(request,pk):
             # redirect to page confirming success
     else:
         form = CSV_Form()
-    workshop = get_object_or_404(models.Workshop, pk=pk)
-    return render(request, "importing/csv_upload.html", {'form': form,'workshop':workshop})
+    return render(request, "importing/csv_upload.html", {'form': form})

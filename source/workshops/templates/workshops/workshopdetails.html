@@ -7,7 +7,7 @@
     <br/>
     <br/>
     <h3>-Add invitee's to your workshop</h3>
-    <a class = "btn btn-primary" href = "{% url 'csv_upload' %}"> CSV Upload</a>
+    <a class = "btn btn-primary" href = "{% url 'workshop:csv_upload' workshop.id%}"> CSV Upload</a>
     <br/>
     <br/>
     <h3>-Email invitee's </h3>

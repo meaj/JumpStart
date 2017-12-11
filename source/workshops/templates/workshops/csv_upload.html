@@ -1,0 +1,21 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSV File Upload</title>
+   this is the {{ workshop.title }}
+</head>
+<h1>CSV File Upload</h1>
+<body>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+</body>
+</html>
+{% endblock %} }}
