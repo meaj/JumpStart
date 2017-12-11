@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-import csv
+import pdb
 
 from django.shortcuts import render, get_object_or_404
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
@@ -34,7 +34,8 @@ def createWorkshop(request):
 
 def workshop_details(request,pk):
         workshop = get_object_or_404(Workshop, pk=pk)
-        return render(request,'workshops/workshopdetails.html',{'workshop':workshop})
+        workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
+        return render(request,'workshops/workshopdetails.html',{'workshop':workshop, 'workshop_associations':workshop_associations,})
 
 
 
@@ -78,28 +79,8 @@ def process_file(form, f, workshop):
                         first_name=lineL[8],
                         email=lineL[10], group=group_name)
                     attendee.save()
-                    workshop_association = AssociationObject.objects.create()
-                    workshop_association.setup_association(attendee, workshop)
-                    workshop_association.save()
-                else:
-                    pass
-            # If multiple abc123 attendees are detected, unexpected behavior based on database conflicts,
-            # delete all found and create new from file
-            except MultipleObjectsReturned:
-                attendees = AttendeeObject.objects.all()
-                for a in attendees:
-                    a.delete()
-                if re.match(r"\d+", lineL[0]) and re.match(
-                        r"^[\w.]+@[\w.]+$", lineL[10]) \
-                        and re.match(r"^[a-z]{3}[0-9]{3}$",
-                                     lineL[6]):
-                    attendee = AttendeeObject.objects.create(
-                        utsa_id=lineL[6], last_name=lineL[7],
-                        first_name=lineL[8],
-                        email=lineL[10], group=group_name)
-                    attendee.save()
-                    workshop_association = AssociationObject.objects.create()
-                    workshop_association.setup_association(attendee, workshop)
+                    workshop_association = AssociationObject.objects.create(attendee_local= attendee, workshop_local = workshop)
+                    #workshop_association.setup_association(attendee, workshop)
                     workshop_association.save()
                 else:
                     pass
@@ -115,8 +96,8 @@ def process_file(form, f, workshop):
                     attendee.save()
                     # create association between workshop and attendee after import attempt
                     # this should work once workshop object is implemented
-                    workshop_association = AssociationObject.objects.create()
-                    workshop_association.setup_association(attendee, workshop)
+                    workshop_association = AssociationObject.objects.filter(attendee_local=attendee.email)
+                    #workshop_association.setup_association(attendee, workshop)
                     workshop_association.save()
 
 

@@ -11,8 +11,8 @@
     <br/>
     <br/>
     <h3>-List of attendees </h3>
-    {% for attendee in attendees %}
-            {{ attendee.attendee }}
+    {% for association in workshop_associations %}
+            {{ association.attendee_local }}
             <br />
     {% endfor %}
     <br/>
