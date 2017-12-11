@@ -12,3 +12,9 @@ class Workshop(models.Model):
 
     def __str__(self):
         return self.title
+
+class session(models.Model):
+    session_title = models.CharField(max_length=48,default="title")
+    session_date = models.CharField(max_length=48,default="5 November")
+    session_threshold = models.IntegerField(default= 1)
+    workshop = models.ForeignKey(Workshop, default=1)

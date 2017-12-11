@@ -4,6 +4,7 @@
     <h1>Welcome to workshop {{ workshop.title }}</h1>
     <br/>
     <h3>-Sessions</h3>
+    <a class = "btn btn-primary" href = "{% url 'workshop:createSession' workshop.id%}"> Create New Session</a>
     <br/>
     <br/>
     <h3>-Add invitees to your workshop</h3>
@@ -11,16 +12,20 @@
     <br/>
     <br/>
     <h3>-List of attendees </h3>
-    {% for association in workshop_associations %}
-            {{ association.attendee_local }}
-            <br />
-    {% endfor %}
+    {% if workshop_associations %}
+        {% for association in workshop_associations %}
+                {{ association.attendee_local.email }}
+                <br />
+        {% endfor %}
+        <a class = "btn btn-primary" href = ""> Send Emails</a>
+    {% endif %}
     <br/>
     <br/>
     <h3>-Check people registered to the workshop</h3>
     <br/>
     <br/>
     <h3>-Create survey for the workshop</h3>
+    <a class = "btn btn-primary" href = ""> Create Survey</a>
 
 
 {% endblock %} }}

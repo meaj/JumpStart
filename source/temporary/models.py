@@ -11,6 +11,7 @@ def generate_uuid():
 
 
 class attendee_email_workshop_uuid_association(models.Model):
+    attendee_utsa_id = models.CharField(max_length=6, default="abc123")
     uuid_token_local = models.UUIDField(primary_key=True, default=uuid.uuid4,
                                         editable=False)
     attendee_local = models.ForeignKey(attendeeObject, on_delete=models.CASCADE,
@@ -26,6 +27,10 @@ class attendee_email_workshop_uuid_association(models.Model):
     @property
     def attendee(self):
         return self.attendee_local
+
+    @property
+    def utsa_id(self):
+        return self.attendee_utsa_id
 
     @property
     def workshop(self):

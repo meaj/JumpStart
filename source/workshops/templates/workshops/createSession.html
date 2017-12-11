@@ -1,0 +1,23 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+<h1> Create session for : {{workshop.title }}</h1>
+
+{% if error %}
+{{ error }}
+<br/>
+<br/>
+{% endif %}
+
+<form method="POST" action="{url'post:createWorkshop' %}">
+    {% csrf_token %}
+    Workshop Title:
+    <br/>
+    <input type="text" name="title"/>
+    <br/>
+    <br />
+    <input class = "btn btn-primary" type="submit" value="Post"/>
+</form>
+
+{% endblock %}

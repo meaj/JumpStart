@@ -38,6 +38,9 @@ def workshop_details(request,pk):
         return render(request,'workshops/workshopdetails.html',{'workshop':workshop, 'workshop_associations':workshop_associations,})
 
 
+def createSession(request, pk):
+    workshop = get_object_or_404(Workshop, pk=pk)
+    return render(request, 'workshops/createSession.html',{'workshop': workshop})
 
 @login_required(login_url='accounts/login/')
 def email_template_page(request):
@@ -79,9 +82,19 @@ def process_file(form, f, workshop):
                         first_name=lineL[8],
                         email=lineL[10], group=group_name)
                     attendee.save()
-                    workshop_association = AssociationObject.objects.create(attendee_local= attendee, workshop_local = workshop)
-                    #workshop_association.setup_association(attendee, workshop)
-                    workshop_association.save()
+                    try:
+                        workshop_association = AssociationObject.objects.get(attendee_utsa_id=attendee.utsa_id,
+                                                                             workshop_local=workshop)
+                    except ObjectDoesNotExist:
+                        workshop_association = AssociationObject.objects.create(attendee_local=attendee,
+                                                                                attendee_utsa_id = attendee.utsa_id,
+                                                                                workshop_local=workshop)
+                        workshop_association.save()
+                    else:
+                        if(workshop_association.attendee != attendee):
+                            workshop_association.attendee_local = attendee
+                            workshop_association.attendee_clicked_link_local = False
+                            workshop_association.save()
                 else:
                     pass
             else:
@@ -96,9 +109,20 @@ def process_file(form, f, workshop):
                     attendee.save()
                     # create association between workshop and attendee after import attempt
                     # this should work once workshop object is implemented
-                    workshop_association = AssociationObject.objects.filter(attendee_local=attendee.email)
-                    #workshop_association.setup_association(attendee, workshop)
+                #import ipdb
+                #ipdb.set_trace()
+                try:
+                    workshop_association = AssociationObject.objects.get(attendee_utsa_id=attendee.utsa_id, workshop_local= workshop)
+                except ObjectDoesNotExist:
+                    workshop_association = AssociationObject.objects.create(attendee_local=attendee,
+                                                                            attendee_utsa_id = attendee.utsa_id,
+                                                                            workshop_local=workshop)
                     workshop_association.save()
+                else:
+                    if(workshop_association.attendee_local != attendee):
+                        workshop_association.attendee_local = attendee
+                        workshop_association.attendee_clicked_link_local = False
+                        workshop_association.save()
 
 
 
