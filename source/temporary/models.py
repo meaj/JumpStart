@@ -25,11 +25,12 @@ class attendee_email_workshop_uuid_association(models.Model):
 
     @property
     def attendee(self):
-        return self.attendee
+        return self.attendee_local
 
     @property
     def workshop(self):
-        return self.workshop
+        return self.workshop_local
+
 
     def setup_association(self, intput_attendee, input_workshop):
         if (

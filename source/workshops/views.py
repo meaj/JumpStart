@@ -53,7 +53,8 @@ def email_template_page(request):
 
 def process_file(form, f, workshop):
     # gets group name from form, will need to get from workshop in future, possibly rename to workshop name
-    group_name = workshop.title
+    group_name = form.cleaned_data['group']
+    #group_name = workshop.title should not be used as an invitee can be associated with multiple workshops
 
     for line in f:
         # Convert file bytes into string so that it can use split.
@@ -76,6 +77,10 @@ def process_file(form, f, workshop):
                         utsa_id=lineL[6], last_name=lineL[7],
                         first_name=lineL[8],
                         email=lineL[10], group=group_name)
+                    attendee.save()
+                    workshop_association = AssociationObject.objects.create()
+                    workshop_association.setup_association(attendee, workshop)
+                    workshop_association.save()
                 else:
                     pass
             # If multiple abc123 attendees are detected, unexpected behavior based on database conflicts,
@@ -92,6 +97,10 @@ def process_file(form, f, workshop):
                         utsa_id=lineL[6], last_name=lineL[7],
                         first_name=lineL[8],
                         email=lineL[10], group=group_name)
+                    attendee.save()
+                    workshop_association = AssociationObject.objects.create()
+                    workshop_association.setup_association(attendee, workshop)
+                    workshop_association.save()
                 else:
                     pass
             else:
@@ -103,12 +112,9 @@ def process_file(form, f, workshop):
                         and attendee.group != group_name:
                     attendee.email = lineL[10]
                     attendee.group = group_name
-                    #attendee.workshop = workshop.title
                     attendee.save()
-
                     # create association between workshop and attendee after import attempt
                     # this should work once workshop object is implemented
-
                     workshop_association = AssociationObject.objects.create()
                     workshop_association.setup_association(attendee, workshop)
                     workshop_association.save()
