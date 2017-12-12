@@ -17,7 +17,14 @@ from django.contrib.auth.decorators import login_required
 from . import models
 from .models import Workshop, session as SessionObject
 
+from django.utils import datetime_safe
 # Create your views here.
+
+
+globalListOfAttenddes = []
+
+
+
 @login_required(login_url='/login/')
 def createWorkshop(request):
     if request.method == 'POST':
@@ -38,7 +45,20 @@ def workshop_details(request,pk):
         workshop = get_object_or_404(Workshop, pk=pk)
         workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
         sessions  = SessionObject.objects.filter(workshop=workshop)
-        return render(request,'workshops/workshopdetails.html',{'workshop':workshop, 'workshop_associations':workshop_associations,'sessions':sessions})
+        survey_list = models.Survey.objects.filter(workshop = workshop)
+        survey = None
+        for x in survey_list:
+            survey = x
+
+        attending = globalListOfAttenddes
+
+
+        return render(request,'workshops/workshopdetails.html',{'workshop':workshop,
+                                                                'workshop_associations':workshop_associations,
+                                                                'sessions':sessions,
+                                                                'survey': survey,
+                                                                'attending':attending,
+                                                                })
 
 
 def createSession(request, pk):
@@ -73,13 +93,25 @@ def bulk_email_page(request, pk):
         if form.is_valid():
             workshop = get_object_or_404(Workshop, pk=pk)
             workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
+            survey = models.Survey.objects.all()
+            last_survey = survey.reverse()[0]
+
+            print(last_survey.id)
             for association in workshop_associations:
                 temp_attendee = association.attendee_local
                 #may need to change
                 email_string = "http://" + str(
-                    request.get_host()) + "/temporary/" + str(
-                    association.uuid_token)
-                temp_body = form.cleaned_data['email_body'] + "\nYour unique email link is:\n" + email_string + "\n\n" + form.cleaned_data['email_signature'] + "\n"
+                    request.get_host()) + "/workshops/survey/" +str(last_survey.id)+ "/" +\
+                    str(association.uuid_token)
+
+
+#survey/(?P<survey_id>\d+)/(?P<uuid>[0-9a-f\-]+)
+
+
+                temp_body = form.cleaned_data['email_body'] + "\nPlease take your survey here!:\n" + email_string + "\n\n" + form.cleaned_data['email_signature'] + "\n"
+
+
+
                 send_mail(
                     form.cleaned_data['email_subject'],
                     temp_body,
@@ -87,6 +119,7 @@ def bulk_email_page(request, pk):
                     [temp_attendee.email],
                     fail_silently=False
                 )
+                return redirect('/workshops/1/')
 
 
             # form.save()
@@ -184,3 +217,115 @@ def csv_upload_page(request,pk):
         form = CSV_Form()
     workshop = get_object_or_404(Workshop, pk=pk)
     return render(request, "workshops/csv_upload.html", {'form': form,'workshop':workshop,'success':success})
+
+
+pkval = -1
+def createQuestionsForSurvey(request, pk=-1):
+    global pkval
+
+    print("Start of createQuestions "+str(pk)+"                    PKPKPKPKPKPK")
+
+    if(int(pk) > -1):
+        pkval = pk
+
+    import ipdb
+
+    if request.method == 'POST':
+        print("IS A POST STATEMENT------------------")
+        if request.POST['questions']:
+            name_of_survey = request.POST.get('survey_title_form')
+            #threshold = request.POST.get('threshold')
+
+            workshop = models.Workshop.objects.all()
+            first_workshop = workshop[0]
+
+
+            survey = models.Survey.objects.create(title=name_of_survey,
+                                                  creator="user",
+                                                  pub_date=datetime_safe.datetime.today(),
+                                                  threshold=0,
+                                                  workshop=first_workshop
+                                                  )
+
+
+
+            question_dict = request.POST.getlist('questions')
+            for row_question in question_dict:
+                models.Question.objects.create(body_text=row_question, survey=survey)
+
+        print("\nNewly created survey id == "+ str(survey.id) )
+        if(int(pkval) > -1):
+            return redirect('/workshops/'+str(pkval)+'/')
+        else:
+            return redirect('/')
+    if request.method == 'GET':
+        print("I hate my life")
+
+
+        return render(request, 'workshops/survey.html')
+      # return redirect('/workshops/workshops/survey.html', {'pk': pk})
+
+
+    else:
+        print("Not a post statement "+"                    SDADSA")
+        return render(request, 'workshops/survey.html')
+
+
+def survey_render_function(request, survey_id, uuid):
+    print(uuid)
+    if request.method == "POST":
+
+      #  ipdb.set_trace()
+        answered_questions = {(key, value) for key, value in request.POST.dict().items() if 'question' in key}
+        total = 0
+        num_questions = len(answered_questions)
+
+        survey = models.Survey.objects.filter(id=survey_id)
+        threshold = 0.0
+
+        local_sessions = SessionObject.objects.all()
+
+
+        for value in survey:
+            threshold = value.threshold
+       # ipdb.set_trace()
+        for key, value in answered_questions:
+            total += int(value)
+
+        averaged_score = float(total / num_questions)
+        sessionList = []
+        print("sessionList")
+        for session in local_sessions:
+            print("session threshold " +str(session.session_threshold))
+            if session.session_threshold >= averaged_score:
+                #show this session as available to student
+                sessionList.append(session)
+                list_of_association = AssociationObject.objects.filter(uuid_token_local = uuid)
+                assoc_obj = list_of_association[0]
+                #print(assoc_obj.attendee_local.email)
+                global globalListOfAttenddes
+                print(assoc_obj.attendee_local.email)
+                if( assoc_obj.attendee_local.email not in globalListOfAttenddes):
+                    globalListOfAttenddes.append(assoc_obj.attendee_local.email)
+                    print(assoc_obj.attendee_local.email)
+                #globalListOfAttenddes
+
+
+
+        return render(request, 'workshops/complete_survey.html', {"total": total,
+                                                                  "avg": float(total / num_questions),
+                                                                  "num_questions": num_questions,
+                                                                "threshold": threshold,
+                                                                  "sessionList":sessionList
+                                                                })
+
+
+    else:
+        questions = models.Question.objects.filter(survey__id=survey_id)
+        form_values = models.AnsweredQuestions.KNOWLEDGE_IN_SUBJECT
+
+        return render(request, 'workshops/present_survey.html', {'form': form_values,
+                                                                 'survey_id': survey_id,
+                                                                 'list_of_questions': questions,
+                                                                 'uuid':uuid
+                                                                 })

@@ -25,11 +25,26 @@
     {% endif %}
     <br/>
     <br/>
-    <h3>-Check people registered to the workshop</h3>
+    {% if attending %}
+    <h3>-People who should be attending the workshop</h3>
+        {% for email in attending %}
+            {{email}}
+        {% endfor%}
+    {% endif %}
+
+
+
+
+
     <br/>
     <br/>
     <h3>-Create survey for the workshop</h3>
-    <a class = "btn btn-primary" href = ""> Create Survey</a>
+    {% if survey %}
+        {{survey.title}}
+        <br/>
+    {% endif %}
+
+   <a class = "btn btn-primary" href = " {% url 'workshop:createsurvey' workshop.id %}"> Create Survey</a>
 
     <br />
 </div>

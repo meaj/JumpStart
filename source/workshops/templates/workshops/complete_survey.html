@@ -13,7 +13,17 @@
 Number of Questions: {{ num_questions }} <br>
 Total: {{ total }} <br>
 Average: {{ avg }} <br>
-Threshold: {{ threshold }} <br>
+<br/>
+           {%if sessionList%}
+             You should attend the following Sessions:
+            {%endif %}
+            <br/>
+            <br/>
+            {% for sessions in sessionList %}
+               {{ sessions.session_title }} at {{sessions.session_location}} on {{sessions.session_date}}<br/>
+               <!--- <input type="radio" name="question_{{ question.id}}" value="{{ value }}"> {{ choice }} --->
+            {% endfor %}
+
 </body>
 </html>
 {% endblock %}

@@ -10,7 +10,7 @@
 
 
 <h1>Questions</h1>
-<form action="/survey/{{ survey_id }}/" method="post">
+<form action="/workshops/survey/{{ survey_id }}/{{ uuid }}" method="post">
 {% csrf_token %}
     <ol>
         {%  for question in list_of_questions %}

@@ -12,7 +12,7 @@
     </style>
 </header>
 <body>
-<form action="/survey/create/" name="survey_form" method="post" title="survey_data">
+<form action="/workshops/survey/make/" name="createsurvey" method="post" title="survey_data">
     {% csrf_token %}
     <h2>Name of your survey </h2><br />
     <input  type='text' name='survey_title_form' placeholder='Name of Survey',title="survey_name">
@@ -22,8 +22,9 @@
 
     <ol id="survey"></ol>
     <br />
-    <input type='text' name='threshold' placeholder='Score threshold' title='threshold'>
-    <br />
+   <!--- <input type='text' name='threshold' placeholder='Score threshold' title='threshold'>
+    <br /> --->
+
     <br/>
     <input class = "btn btn-primary" type="submit">
 

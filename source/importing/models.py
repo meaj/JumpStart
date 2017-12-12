@@ -2,7 +2,10 @@ from django.db import models
 import os
 from django.test import TestCase
 # Create your models here.
-#from workshops.models import Workshop
+#import workshops.models as wsModel
+#from workshops.models import session
+
+
 class faculty(models.Model):
     title = models.CharField(max_length=48)
     last_name = models.CharField(max_length=48)
@@ -20,6 +23,7 @@ class attendee(models.Model):
     last_name = models.CharField(max_length=48)
     email = models.CharField(max_length=60)
     attendee_email = models.EmailField
+   # attending_sessions = models.ForeignKey(wsModel.session)
     #workshop = models.ForeignKey(Workshop, default="TEST")
 
     def __str__(self):
