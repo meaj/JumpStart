@@ -2,7 +2,7 @@ from django.db import models
 import os
 from django.test import TestCase
 # Create your models here.
-from workshops.models import Workshop
+#from workshops.models import Workshop
 class faculty(models.Model):
     title = models.CharField(max_length=48)
     last_name = models.CharField(max_length=48)

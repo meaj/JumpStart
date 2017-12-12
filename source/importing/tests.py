@@ -1,6 +1,60 @@
 from django.test import TestCase
 from importing.models import attendee, csv_file
+from workshops.models import Workshop as workshop, session
 from django.db import models
+
+# session test cases
+'''NEED TO BE IMPLEMENTED BELOW'''
+#20 session_title tests
+goodSessionTestCase1 = "Test Session"
+goodSessionTestCase2 = "Test Session A"
+goodSessionTestCase3 = "Test Session B"
+goodSessionTestCase4 = "Test Session 1"
+goodSessionTestCase5 = "Test Session 2"
+goodSessionTestCase6 = "Test_Session"
+goodSessionTestCase7 = "Test_Session:A"
+goodSessionTestCase8 = "Test_Session:B"
+goodSessionTestCase9 = "Test_Session#1"
+goodSessionTestCase10 = "Test_Session#2"
+goodSessionTestCase11 = "Test Session:A"
+goodSessionTestCase12 = "Test Session:B"
+goodSessionTestCase13 = "Test Session#1"
+goodSessionTestCase14 = "Test Session#2"
+goodSessionTestCase15 = "TEST SESSION"
+badSessionTestCase1 = None
+badSessionTestCase2 = ""
+badSessionTestCase3 = "#"
+badSessionTestCase4 = "5"
+badSessionTestCase5 = "."
+#session_date tests
+#session_threshold tests
+
+
+#20 workshop test cases
+'''NEED TO BE IMPLEMENTED BELOW'''
+#15 title tests
+goodWorkshopTestCase1 = "Test Workshop"
+goodWorkshopTestCase2 = "Test Workshop 2017"
+goodWorkshopTestCase3 = "test workshop 2017"
+goodWorkshopTestCase4 = "TestWorkshop2017"
+goodWorkshopTestCase5 = "testWorkshop2017"
+goodWorkshopTestCase6 = "Test_Workshop_2017"
+goodWorkshopTestCase7 = "test_workshop_2017"
+goodWorkshopTestCase8 = "TESTWORKSHOP"
+goodWorkshopTestCase9 = "Test Workshop 2017 #1"
+goodWorkshopTestCase10 = "Test Workshop #1"
+badWorkshopTestCase1 = ""
+badWorkshopTestCase2 = None
+badWorkshopTestCase3 = "."
+badWorkshopTestCase4 = "2017"
+badWorkshopTestCase5 = "&"
+#5 owner tests
+goodWorkshopTestCase11 = "Admin"
+goodWorkshopTestCase12 = "kevin_admin"
+badWorkshopTestCase6 = ""
+badWorkshopTestCase7 = None
+badWorkshopTestCase8 = "#"
+#pub_date tests
 
 # 20 email test cases
 goodEmailTestCase = "Example@email.com"
