@@ -1,3 +1,5 @@
+{% extends 'workshops/base.html' %}
+{% block content %}
 <html>
 <header>
     <style>
@@ -10,15 +12,20 @@
     </style>
 </header>
 <body>
-<button id="addBtn">Add a question</button>
 <form action="/survey/create/" name="survey_form" method="post" title="survey_data">
     {% csrf_token %}
+    <h2>Name of your survey </h2><br />
     <input  type='text' name='survey_title_form' placeholder='Name of Survey',title="survey_name">
-    <ol id="survey"></ol>
+    <br/>
+    <br />
+        <a class="glyphicon glyphicon-plus-sign" id="addBtn"> Add question</a>
 
+    <ol id="survey"></ol>
+    <br />
     <input type='text' name='threshold' placeholder='Score threshold' title='threshold'>
-    <br>
-    <input type="submit">
+    <br />
+    <br/>
+    <input class = "btn btn-primary" type="submit">
 
 </form>
 
@@ -43,3 +50,5 @@
 </script>
 
 </html>
+
+{% endblock %}

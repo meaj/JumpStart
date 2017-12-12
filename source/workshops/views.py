@@ -14,7 +14,7 @@ from temporary.models import \
 import re
 from django.contrib.auth.decorators import login_required
 from . import models
-from .models import Workshop
+from .models import Workshop, session as SessionObject
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -41,7 +41,9 @@ def workshop_details(request,pk):
 
 def createSession(request, pk):
     workshop = get_object_or_404(Workshop, pk=pk)
-    return render(request, 'workshops/createSession.html',{'workshop': workshop})
+    session = SessionObject.objects.get(workshop=workshop)
+    #set values for session from form
+    return render(request, 'workshops/complete_survey.html',{'workshop': workshop})
 
 @login_required(login_url='accounts/login/')
 def bulk_email_page(request, pk):
