@@ -1,0 +1,45 @@
+<html>
+<header>
+    <style>
+        .question{
+            width:80%;
+        }
+        li{
+            margin-bottom:15px;
+        }
+    </style>
+</header>
+<body>
+<button id="addBtn">Add a question</button>
+<form action="/survey/create/" name="survey_form" method="post" title="survey_data">
+    {% csrf_token %}
+    <input  type='text' name='survey_title_form' placeholder='Name of Survey',title="survey_name">
+    <ol id="survey"></ol>
+
+    <input type='text' name='threshold' placeholder='Score threshold' title='threshold'>
+    <br>
+    <input type="submit">
+
+</form>
+
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var questionHtml = "<li><input class='question' type='text' name='questions' placeholder='Enter a question'></input><button class='removeQuestion' >x</button></li>"
+    var addButton = $("#addBtn");
+    var surveyForm = $("#survey");
+
+    addButton.on('click', function(){
+        surveyForm.append(questionHtml);
+    });
+
+    surveyForm.on('click', '.removeQuestion', function(e){
+        e.preventDefault();
+        $(this).parent().remove();
+    });
+
+</script>
+
+</html>
