@@ -39,3 +39,4 @@ urlpatterns = [
     # goes to splash.views.index and loads splash_index_page, bad coding practive
     url(r'^workshops/', workshops.views.createWorkshop, name='workshops'),
 ]
+
