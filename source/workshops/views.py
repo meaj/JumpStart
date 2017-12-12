@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404
 from importing.models import attendee as AttendeeObject, csv_file as CSVObject
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from importing.forms import CSV_Form, Email_Template_Form
+from workshops.forms import Session_Form
 from temporary.models import \
     attendee_email_workshop_uuid_association as AssociationObject
 import re
@@ -41,9 +42,20 @@ def workshop_details(request,pk):
 
 def createSession(request, pk):
     workshop = get_object_or_404(Workshop, pk=pk)
-    session = SessionObject.objects.get(workshop=workshop)
+    if(request.method =="POST"):
+        form = Session_Form(request.POST)
+        if form.is_valid():
+            session = SessionObject.objects.create(workshop=workshop)
+            session.session_title = form.cleaned_data['session_title']
+            session.session_date = form.cleaned_data['session_date']
+            session.session_location = form.cleaned_data['session_location']
+            session.session_threshold = form.cleaned_data['session_threshold']
+            session.save()
     #set values for session from form
-    return render(request, 'workshops/complete_survey.html',{'workshop': workshop})
+    else:
+        form = Session_Form()
+
+    return render(request, 'workshops/createSession.html',{'workshop': workshop, 'form':form})
 
 @login_required(login_url='accounts/login/')
 def bulk_email_page(request, pk):
