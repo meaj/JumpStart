@@ -4,6 +4,10 @@
     <h1>Welcome to workshop {{ workshop.title }}</h1>
     <br/>
     <h3>-Sessions</h3>
+    {% for session in sessions %}
+        {{ session.session_title }} : {{ session.session_date }}
+        <br />
+    {% endfor %}
     <a class = "btn btn-primary" href = "{% url 'workshop:createSession' workshop.id%}"> Create New Session</a>
     <br/>
     <br/>

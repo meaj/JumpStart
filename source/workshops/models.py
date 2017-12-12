@@ -15,7 +15,7 @@ class Workshop(models.Model):
 
 class session(models.Model):
     session_title = models.CharField(max_length=48,default="title")
-    session_date = models.CharField(max_length=48,default="5 November")
+    session_date = models.DateTimeField(default="1987-01-01 00:00")
     session_location = models.CharField(max_length=48,default="CS Main Lab")
     session_threshold = models.IntegerField(default= 1)
     workshop = models.ForeignKey(Workshop, default=1)

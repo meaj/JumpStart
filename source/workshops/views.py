@@ -37,7 +37,8 @@ def createWorkshop(request):
 def workshop_details(request,pk):
         workshop = get_object_or_404(Workshop, pk=pk)
         workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
-        return render(request,'workshops/workshopdetails.html',{'workshop':workshop, 'workshop_associations':workshop_associations,})
+        sessions  = SessionObject.objects.filter(workshop=workshop)
+        return render(request,'workshops/workshopdetails.html',{'workshop':workshop, 'workshop_associations':workshop_associations,'sessions':sessions})
 
 
 def createSession(request, pk):
@@ -51,11 +52,13 @@ def createSession(request, pk):
             session.session_location = form.cleaned_data['session_location']
             session.session_threshold = form.cleaned_data['session_threshold']
             session.save()
+            return redirect('workshops/workshopdetails.html')
     #set values for session from form
     else:
         form = Session_Form()
+        return render(request, 'workshops/createSession.html', {'workshop': workshop, 'form': form})
 
-    return render(request, 'workshops/createSession.html',{'workshop': workshop, 'form':form})
+
 
 @login_required(login_url='accounts/login/')
 def bulk_email_page(request, pk):
@@ -170,6 +173,7 @@ def csv_upload_page(request,pk):
             process_file(form, request.FILES['document'], workshop)
             success = "Added Invitees to Workshop!"
             # redirect to page confirming success
+            return redirect('workshops/workshopdetails.html')
     else:
         form = CSV_Form()
     workshop = get_object_or_404(Workshop, pk=pk)
