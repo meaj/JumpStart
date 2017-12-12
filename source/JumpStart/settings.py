@@ -128,7 +128,3 @@ EMAIL_HOST_USER = 'jumpstartutsa@gmail.com'
 EMAIL_HOST_PASSWORD = 'Admin1234'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-# csv media storage
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
