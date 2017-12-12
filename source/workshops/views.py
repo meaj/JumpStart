@@ -46,13 +46,19 @@ def createSession(request, pk):
     if(request.method =="POST"):
         form = Session_Form(request.POST)
         if form.is_valid():
-            session = SessionObject.objects.create(workshop=workshop)
-            session.session_title = form.cleaned_data['session_title']
-            session.session_date = form.cleaned_data['session_date']
-            session.session_location = form.cleaned_data['session_location']
-            session.session_threshold = form.cleaned_data['session_threshold']
-            session.save()
-            return redirect('workshops/workshopdetails.html')
+            try :#object exists
+               session = SessionObject.objects.get(workshop=workshop,session_title=form.cleaned_data['session_title'])
+               error = 'session already exists'
+               form = Session_Form()
+               return render(request, 'workshops/createSession.html', {'error':error,'form':form})
+            except:#object does not exist
+                session = SessionObject.objects.create(workshop=workshop)
+                session.session_title = form.cleaned_data['session_title']
+                session.session_date = form.cleaned_data['session_date']
+                session.session_location = form.cleaned_data['session_location']
+                session.session_threshold = form.cleaned_data['session_threshold']
+                session.save()
+                return redirect('workshops/workshopdetails.html')
     #set values for session from form
     else:
         form = Session_Form()
