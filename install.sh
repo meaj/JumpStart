@@ -40,6 +40,8 @@ done
 
 echo "All required packages are installed."
 
+set -e
+
 echo "Copying app files to ${OPT_DIR}..."
 mkdir -p ${OPT_DIR}
 rm -rv ${OPT_DIR}*
@@ -69,3 +71,7 @@ chown --recursive ${USER_NAME}:${USER_NAME} ${OPT_DIR} ${VAR_DIR} ${ETC_DIR}
 chmod --recursive a=,a=rX,ug+x ${OPT_DIR}
 chmod --recursive a=,a=rX,ug+w ${VAR_DIR}
 chmod --recursive a=,ug=rX ${ETC_DIR}
+
+cp ./jumpstartinit.sh /etc/init.d/jumpstart
+systemctl daemon-reload
+service jumpstart start
