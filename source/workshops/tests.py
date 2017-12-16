@@ -311,6 +311,75 @@ class workshopTestCase(TestCase):
         workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
         self.assertRaises(TypeError)
 
+    def test_badWorkshopTest11(self):
+        t_owner = User.objects.create_user(badUserTestCase2, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest12(self):
+        t_owner = User.objects.create_user(badUserTestCase2, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest13(self):
+        t_owner = User.objects.create_user(badUserTestCase2, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest14(self):
+        t_owner = User.objects.create_user(badUserTestCase2, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest15(self):
+        t_owner = User.objects.create_user(badUserTestCase2, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest16(self):
+        t_owner = User.objects.create_user(badUserTestCase3, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest17(self):
+        t_owner = User.objects.create_user(badUserTestCase3, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest18(self):
+        t_owner = User.objects.create_user(badUserTestCase3, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest19(self):
+        t_owner = User.objects.create_user(badUserTestCase3, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
+
+    def test_badWorkshopTest20(self):
+        t_owner = User.objects.create_user(badUserTestCase3, "", "password")
+        t_date = datetime.date.today()
+        self.assertRaises(ValueError)
+        workshop.objects.create(owner=t_owner, pub_date=t_date, title=goodWorkshopTestCase1)
+        self.assertRaises(TypeError)
 
 from django.test import TestCase
 
