@@ -119,7 +119,7 @@ def bulk_email_page(request, pk):
                     [temp_attendee.email],
                     fail_silently=False
                 )
-                return redirect('/workshops/1/')
+                return redirect('/workshops/'+pk+"/")
 
 
             # form.save()
