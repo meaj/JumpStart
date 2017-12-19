@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 import accounts.views
 import workshops.views
 import importing.views
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^splash/', include('splash.url')),

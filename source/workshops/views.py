@@ -16,14 +16,40 @@ import re
 from django.contrib.auth.decorators import login_required
 from . import models
 from .models import Workshop, session as SessionObject
-
+from django.template.loader import get_template
 from django.utils import datetime_safe
+from django.http import HttpResponse
+from django.views.generic import View
+
+from .utils import render_to_pdf #created in step 4
+
+
+
 # Create your views here.
 
 
 globalListOfAttenddes = []
 
-
+def GeneratePDF(request,pk):
+    template = get_template('workshops/invoice.html')
+    workshop = get_object_or_404(Workshop, pk=pk)
+    workshop_associations = AssociationObject.objects.filter(workshop_local=workshop)
+    context = {
+        'workshop':workshop ,
+        'workshop_associations':workshop_associations,
+    }
+    html = template.render(context)
+    pdf = render_to_pdf('workshops/invoice.html',context)
+    if pdf:
+        response = HttpResponse(pdf, content_type= 'application/pdf')
+        filename = "Sign_Up_Sheet_%s.pdf" %(workshop.title)
+        content = "inline; filename ='%s'" %(filename)
+        download = request.GET.get('download')
+        if download:
+            content = "attachment; filename ='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse('Not found')
 
 @login_required(login_url='/login/')
 def createWorkshop(request):
@@ -99,6 +125,7 @@ def bulk_email_page(request, pk):
             print(last_survey.id)
             for association in workshop_associations:
                 temp_attendee = association.attendee_local
+
                 #may need to change
                 email_string = "http://" + str(
                     request.get_host()) + "/workshops/survey/" +str(last_survey.id)+ "/" +\
@@ -329,3 +356,5 @@ def survey_render_function(request, survey_id, uuid):
                                                                  'list_of_questions': questions,
                                                                  'uuid':uuid
                                                                  })
+
+

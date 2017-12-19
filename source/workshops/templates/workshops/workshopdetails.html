@@ -22,6 +22,8 @@
                 <br />
         {% endfor %}
         <a class = "btn btn-primary" href = "{% url 'workshop:bulkemail' workshop.id %} "> Send Emails</a>
+        <a class = "btn btn-primary" href = "{% url 'workshop:generatePDF' workshop.id %} "> PDF</a>
+
     {% endif %}
     <br/>
     <br/>
